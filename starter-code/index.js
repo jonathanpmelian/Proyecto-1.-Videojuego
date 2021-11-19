@@ -1,79 +1,87 @@
-// alert('estoy aqui')
-//¿Podemos generar sensación de tener pisado y soltar el acelerador jugando con speed-keydown-keyup?
-//¿Podríamos generar sensación de inercias jugando con con intervalos-timeouts?
-//¿Podríamos hacer que el coche derrapara en un cambio brusco de dirección a una velocidad >= X?
-
 //HTMLElments
-const $car = document.getElementById('car');
-const $button = document.getElementById('startBtn')
 const $canvas = document.getElementById('canvas')
 //Events
-document.addEventListener('keydown', moveCar);
-document.addEventListener('keyup', moveCarDelay);
-$button.addEventListener('click',startGame);
+// $button.addEventListener('click',startGame);
 //Global Variables
-var currentXCar = 55;
 var bkPosY = 0;
-var timerDelay;
-var timerRoad;
-var speed = 0;
-//Function Declarations
-function moveCarLeft(){
-    if(speed < 1.25){ speed += 0.05 }
-    currentXCar -= speed;
-    $car.style.left = `${currentXCar}%`
+//Objects and functions
+var car = {
+    $car: document.getElementById('car'),
+    currentPos: 55,
+    speed: 0,
+    moveLeft(){
+        if(this.speed < 1.25){ this.speed += 0.05 }
+        this.currentPos -= this.speed;
+        this.$car.style.left = `${this.currentPos}%`
+    },
+    moveRight(){
+        if(this.speed < 1.25){ this.speed += 0.05 }
+        this.currentPos += this.speed;
+        this.$car.style.left = `${this.currentPos}%`
+    },   
+    inertiaLeft(){
+        if(car.speed > 0.05 && car.currentPos > 1){ 
+            car.speed -= 0.05 
+            car.currentPos -= car.speed;
+            car.$car.style.left = `${car.currentPos}%`
+        }
+    },
+    inertiaRight(){
+        if(car.speed > 0.05 && car.currentPos < 88){ 
+            car.speed -= 0.05
+            car.currentPos += car.speed;
+            car.$car.style.left = `${car.currentPos}%`
+        }
+    },
 }
-function moveCarRight(){
-    if(speed < 1.25){ speed += 0.05 }
-    currentXCar += speed;
-    $car.style.left = `${currentXCar}%`
-}
-function moveCar(event){
-    if(currentXCar <= 1 || currentXCar >= 88) {
-        clearInterval(timerDelay) 
-        speed = 0;
+
+var game = {
+    actions(){
+        let timerDelay;
+        document.addEventListener('keydown', function(event){
+            if(car.currentPos <= 1 || car.currentPos >= 88) {
+                clearInterval(timerDelay) 
+                car.speed = 0;
+            }
+            if(event.key === 'a' && car.currentPos > 1){
+                car.moveLeft()
+                setTimeout(clearInterval,400,timerDelay)
+            } else if(event.key === 'd' && car.currentPos < 88) {
+                car.moveRight()
+                setTimeout(clearInterval,400,timerDelay)
+            }
+        });
+        document.addEventListener('keyup', function(event){
+            if(car.currentPos <= 1 || car.currentPos >= 88) { 
+                clearInterval(timerDelay) 
+                car.speed = 0;
+            }
+            if(event.key === 'a' && car.currentPos > 1){
+                timerDelay = setInterval(car.inertiaLeft,20)
+                setTimeout(clearInterval,500,timerDelay)
+            } else if(event.key === 'd' && car.currentPos < 89) {
+                timerDelay = setInterval(car.inertiaRight,20)
+                setTimeout(clearInterval,500,timerDelay)
+            }
+        });
+    },
+    start() {
+        let timerRoad;
+        timerRoad = setInterval(function(){
+            bkPosY+=2
+            $canvas.style.backgroundPositionY = `${bkPosY}px`;
+        }, 10) 
+    },
+    play(){
+        this.start()
+        setTimeout(game.actions,5000)
     }
-    if(event.key === 'a' && currentXCar > 1){
-        moveCarLeft()
-        setTimeout(clearInterval,400,timerDelay)
-    } else if(event.key === 'd' && currentXCar < 88) {
-        moveCarRight()
-        setTimeout(clearInterval,400,timerDelay)
-    }
 }
-function moveCarForceLeft(){
-    if(speed > 0.05 && currentXCar > 1){ 
-        speed -= 0.05 
-        currentXCar -= speed;
-        $car.style.left = `${currentXCar}%`
-    }
-}
-function moveCarForceRight(){
-    if(speed > 0.05 && currentXCar < 88){ 
-        speed -= 0.05
-        currentXCar += speed;
-        $car.style.left = `${currentXCar}%`
-    }
-}
-function moveCarDelay(event){
-    if(currentXCar <= 1 || currentXCar >= 88) { 
-        clearInterval(timerDelay) 
-        speed = 0;
-    }
-    if(event.key === 'a' && currentXCar > 1){
-        timerDelay = setInterval(moveCarForceLeft,20)
-        setTimeout(clearInterval,500,timerDelay)
-    } else if(event.key === 'd' && currentXCar < 89) {
-        timerDelay = setInterval(moveCarForceRight,20)
-        setTimeout(clearInterval,500,timerDelay)
-    }
-}
-function startGame(){
-    timerRoad = setInterval(bkMove, 10)   
-}
-function bkMove(){
-    bkPosY++
-    $canvas.style.backgroundPositionY = `${bkPosY}px`;
-}
+game.play()
+
+
+
+
+
 
 
