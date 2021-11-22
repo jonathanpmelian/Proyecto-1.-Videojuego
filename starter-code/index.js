@@ -1,25 +1,27 @@
-// TODO: Al colisionar contra el obstaculo me ralentizo.
-//Revisar roadSpeed y obstacle.currentPos.y para meterlo en % en lugar de px.
+// TODO: ¿Que quiero que suceda cuando colisiono?¿Como salgo de la colision?¿Como evito solaparme?.
+//Necesitaremos un cronómetro como condición básica de derrota/victoria.
+//Generar obstáculos de manera por aleatoria por distintos carriles cada X tiempo.
 var canvas = {
     $canvas: document.getElementById('canvas'),
-    roadSpeed: 0.004,
+    roadSpeed: 0.00048,
     start() {
         let backgroundPosY = 0;
         let timerRoad = setInterval(function(){
-            if(canvas.roadSpeed < 2){ 
+            if(canvas.roadSpeed < 0.24){ 
                 backgroundPosY += canvas.roadSpeed 
-                canvas.roadSpeed += 0.004
+                canvas.roadSpeed += 0.00048
             } else {
                 backgroundPosY += canvas.roadSpeed
             }
-            canvas.$canvas.style.backgroundPositionY = `${backgroundPosY}px`;
+            canvas.$canvas.style.backgroundPositionY = `${backgroundPosY}%`;
         }, 10) 
+        if (canvas.roadSpeed >= 0.24) { clearInterval(timerRoad) }
     }
 }
 
 var car = {
     $car: document.getElementById('car'),
-    currentPos: { x: 55, y: 15 },
+    currentPos: { x: 75, y: 15 },
     dimensions: { w: 11.3, h: 5.62 },
     speed: 0,
     moveLeft(){
@@ -54,7 +56,7 @@ var obstacle = {
     dimensions: { w: 11.3 , h: 5.62 },
     movement() {
         let timerObstacle = setInterval(function() {
-            obstacle.currentPos.y -= canvas.roadSpeed/12.5; //En =12.5 fijo, >12.5 mismo sentido, <12.5 sentido contrario
+            obstacle.currentPos.y -= canvas.roadSpeed/1.7; //En =1.7 fijo, >1.7 mismo sentido, <1.7 sentido contrario
             obstacle.$obstacle.style.bottom = `${obstacle.currentPos.y}%`
             if(obstacle.currentPos.y < -20) { obstacle.currentPos.y = 100 }
         },10)
@@ -66,9 +68,20 @@ var obstacle = {
             (car.currentPos.x + car.dimensions.w) > obstacle.currentPos.x &&
             (car.currentPos.y + car.dimensions.h) > obstacle.currentPos.y
         ) {
-            alert('COLISION DETECTADITA')
+            car.speed = 0;
+            canvas.roadSpeed = 0;
+            if(car.currentPos.x < obstacle.currentPos.x &&
+                (car.currentPos.x + car.dimensions.w) > obstacle.currentPos.x
+            ){
+                // alert('vengo por la izquierda')
+            }
+            if(car.currentPos.x > obstacle.currentPos.x &&
+                car.currentPos.x < (obstacle.currentPos.x + obstacle.dimensions.w)
+            ){
+                // alert('vengo por la derecha')
+            }
         }
-        },10)  
+        },5)  
     }
 }
 
@@ -105,7 +118,7 @@ var game = {
     play(){
         canvas.start()//El background arranca.
         setTimeout(obstacle.movement,4000)//Empiezan a aparecer obstaculos. 
-        setTimeout(game.actions,5000)//Los controles se activan.
+        setTimeout(game.actions,4500)//Los controles se activan.
         obstacle.checkCollision()//Detecta las colisiones
     }
 }
