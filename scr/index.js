@@ -3,21 +3,32 @@ var car = new Car()
 var obstacle = new Obstacle()
     
 var game = {
-    stopwatch() {
+    stopwatch(){
         let $minute = document.getElementById('minute')
+        let minute = parseInt($minute.innerText);
         let $second = document.getElementById('second')
-        let $milisecond = document.getElementById('milisecond')
-        let milisecond= parseInt($milisecond.innerText)
-        let second = parseInt($second.innerText)
-        let minute = parseInt($minute.innerText)
-        let timer = setInterval(function() {
+        let second = parseInt($second.innerText);
+        let $milisecond = document.getElementById('milisecond');
+        let milisecond = parseInt($milisecond.innerText)
+        
+        setInterval(function(){
+            console.log(milisecond, second, minute)
             if(milisecond === 0){
-                second--
                 milisecond = 99
-            }else{
-                milisecond--
-            }  
+                second --;
+                if(second === -1){
+                    second = 59
+                    minute --;
+                    if(minute === -1){
+                        return game.gameOver()
+                    }
+                }
+            }
+            milisecond--
             $milisecond.innerText = milisecond.toString()
+            $second.innerText = second.toString()
+            $minute.innterText = minute.toString()
+    
         },10)
     },
     direction(){
