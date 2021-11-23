@@ -15,7 +15,7 @@ body,html {
     min-height: 1245.76px;
     margin: auto 0px;
     background-color: honeydew;
-    background-image: url(/images/bgroad/background-1.png);
+    background-image: url(../assets/img/background-1.png);
     background-size: 100%;
     /* background-repeat: no-repeat; */
     background-position-y: 0px;
@@ -48,7 +48,7 @@ body,html {
     height: 5.62%;
     margin: auto auto;
     /* background-color: salmon; */
-    background-image: url(/images/bgroad/car2.png);
+    background-image: url(../assets/img/car2.png);
     background-size: 100% 100%;
 }
 .obstacle {
