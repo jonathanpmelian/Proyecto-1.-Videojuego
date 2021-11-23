@@ -5,20 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RACING GAME TEST</title>
-    <link rel="stylesheet" href="style.css">
-    <script defer src="index.js"></script>
+    <link rel="stylesheet" href="style/style.css">
+    <script defer src="scr/obstacle.js"></script>
+    <script defer src="scr/car.js"></script>
+    <script defer src="scr/canvas.js"></script>
+    <script defer src="scr/index.js"></script>
 </head>
 <body>
     <div class="landscape"></div>
     <div id="canvas">
         <div id="road">
-            <div id="obstacle"></div>
             <div id="car"></div>
         </div>
     </div>
     <div class="landscape">
         <div id="stopwatch">
-            00' : 00'' : 00
+            <span id="minute">03</span>
+            <span id="second">00</span>
+            <span id="milisecond">00</span> 
         </div>
     </div>
 </body>
