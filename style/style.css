@@ -6,46 +6,39 @@ body,html {
     margin: 0px;
     background-color: aliceblue;
 }
-/* De momento hay que jugar a 1255x652 px */
 #canvas{ 
+    position: relative;
     display: flex;
-    width: 652px;
-    min-width: 652px;
-    height: 95%;
-    min-height: 1245.76px;
+    width: 1052px;
+    min-width: 1052px;
+    height: 700px;
+    min-height: 700px;
     margin: auto 0px;
     background-color: honeydew;
-    background-image: url(../assets/img/background-1.png);
-    background-size: 100%;
-    /* background-repeat: no-repeat; */
-    background-position-y: 0px;
-    overflow: hidden;
-}
-.landscape {
-    display: flex;
-    width: 200px;
-    min-width: 200px;
-    height: 95%;
-    min-height: 1245.76px;
-    margin: auto 0px;
-    background-color: rgb(136, 160, 134);
-    background-size: 100% ;
+    background-image: url(../assets/img/roadMidSection.jpg);
+    background-size: cover;
     background-position-y: 0px;
     overflow: hidden;
 }
 #road {
     position: relative;
-    width: 68%;
+    width: 443.36px;
     height: 100%;
     margin: auto auto;
     /* background-color: slategray; */
 }
+#stopwatch {
+    position: absolute;
+    right: 40px;
+    bottom: 670px;
+    color: white;
+}
 #car {
     position: absolute;
-    bottom: 15%;
-    left: 55%;
-    width: 11.3%;
-    height: 5.62%;
+    bottom: 100px;
+    left: 255px;
+    width: 55px;
+    height: 70px;
     margin: auto auto;
     /* background-color: salmon; */
     background-image: url(../assets/img/car2.png);
