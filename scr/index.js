@@ -1,7 +1,6 @@
 var canvas = new Canvas()
 var car = new Car()
 var obstacle = []
-var i = 0
 
 function TaxiDriverGame() {
     this.start = function(){
@@ -9,16 +8,18 @@ function TaxiDriverGame() {
         setInterval(function() {
             canvas.init()//El coche se acelera.
             game.stopwatch()//El crono se inicia.
-            if(obstacleReady === 'on') {
-                obstacle[i].movement()//El obstáculo se mueve.
-                game.checkCollision()//Comprueba las colisiones.
-            }
+            obstacle.forEach(function(elem){
+                if(elem.obstacleReady === 'on') {
+                    elem.movement()//El obstáculo se mueve..
+                } 
+            })
+            game.checkCollision()//Comprueba las colisiones
             game.checkWinCondition()//Comprueba si has ganado.
         },10)
         setInterval(function() {
             game.obstacleSequence()
-            obstacle[i].createDOMobstacle()//Se crea el obstáculo en pantalla.
-        },4500)
+            obstacle.forEach(elem => elem.createDOMobstacle())//Se crea el obstáculo en pantalla.
+        },5000)
     }
     this.stopwatch = function(){
         let $minute = document.getElementById('minute')
@@ -74,16 +75,22 @@ function TaxiDriverGame() {
         });
     }
     this.obstacleSequence = function() {
-       obstacle.push(policeCar,motorbike,truck)
+        this.obstacleArr = [policeCar,motorbike,truck]
+        this.randomObs = this.obstacleArr[Math.floor(Math.random()*3)]
+        //Meter una condición para que no se repita el mismo objeto mientras esté en var obstacle.
+        obstacle.push(this.randomObs)
+        console.log(this.randomObs)
     }
     this.checkCollision = function() {
-        if(car.position.x < (obstacle[i].lane + obstacle[i].dimensions.w) &&
-        car.position.y < (obstacle[i].yPos+ obstacle[i].dimensions.h) &&
-        (car.position.x + car.dimensions.w) > obstacle[i].lane &&
-        (car.position.y + car.dimensions.h) > obstacle[i].yPos
-        ) {
-            game.gameOver()
-        }
+        for(let i = 0 ; i < obstacle.length ; i++) {
+            if(car.position.x < (obstacle[i].lane + obstacle[i].dimensions.w) &&
+            car.position.y < (obstacle[i].yPos+ obstacle[i].dimensions.h) &&
+            (car.position.x + car.dimensions.w) > obstacle[i].lane &&
+            (car.position.y + car.dimensions.h) > obstacle[i].yPos
+            ) {
+                game.gameOver()
+            }
+        }  
     }
     this.gameOver = function() {
         alert('Game Over!')
@@ -95,4 +102,4 @@ function TaxiDriverGame() {
     }
 }
 const game = new TaxiDriverGame()
-// game.start()
+game.start()
