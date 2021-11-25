@@ -1,4 +1,3 @@
-
 function Obstacle(width,height,name) {
     this.name = name
     this.$obstacle = null
@@ -35,9 +34,10 @@ function Obstacle(width,height,name) {
             }
         }
     }
-    this.$obstacle.style.left = `${this.lane}%`
-
 }
+var policeCar = new Obstacle(50,70,'policeCar')
+var motorbike = new Obstacle(25,40,'motorbike')
+var truck = new Obstacle(60,140,'truck')
 /* in CSS inside every car class
 this. yPos = 100
 this.dimensions = { w: 11.3 , h: 5.62 }
@@ -52,7 +52,4 @@ this.movement = function() {
         this.$obstacle.style.bottom = `${this.yPos}px`
         if(this.yPos < -20) { clearInterval(timerObstacle) }
     }.bind(Obstacle),10)
-}
-var policeCar = new Obstacle(50,70,'policeCar')
-var motorbike = new Obstacle(25,40,'motorbike')
-var truck = new Obstacle(60,140,'truck')
+}*/

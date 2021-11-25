@@ -8,7 +8,7 @@ function Car() {
     this.$car.style.bottom = `${this.position.y}px`
     this.$car.style.width = `${this.dimensions.w}px`
     this.$car.style.height = `${this.dimensions.h}px`
-    
+    console.log(this.$car.style.left)
     this.moveLeft = function(){
         if(this.speed < 5.50){ this.speed += 0.22 }
         this.position.x -= this.speed;

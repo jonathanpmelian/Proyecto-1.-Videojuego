@@ -1,11 +1,13 @@
 var canvas = new Canvas()
 var car = new Car()
 var obstacle = []
+var interval10;
+var interval5000;
 
 function TaxiDriverGame() {
     this.start = function(){
         game.direction()//Los controles se activan.
-        setInterval(function() {
+        interval10 = setInterval(function() {
             canvas.init()//El coche se acelera.
             game.stopwatch()//El crono se inicia.
             obstacle.forEach(function(elem){
@@ -16,7 +18,7 @@ function TaxiDriverGame() {
             game.checkCollision()//Comprueba las colisiones
             game.checkWinCondition()//Comprueba si has ganado.
         },10)
-        setInterval(function() {
+        interval5000 = setInterval(function() {
             game.obstacleSequence()
             obstacle.forEach(elem => elem.createDOMobstacle())//Se crea el obstáculo en pantalla.
         },5000)
@@ -79,7 +81,6 @@ function TaxiDriverGame() {
         this.randomObs = this.obstacleArr[Math.floor(Math.random()*3)]
         //Meter una condición para que no se repita el mismo objeto mientras esté en var obstacle.
         obstacle.push(this.randomObs)
-        console.log(this.randomObs)
     }
     this.checkCollision = function() {
         for(let i = 0 ; i < obstacle.length ; i++) {
@@ -93,7 +94,14 @@ function TaxiDriverGame() {
         }  
     }
     this.gameOver = function() {
-        alert('Game Over!')
+        clearInterval(interval10)
+        clearInterval(interval5000)
+        let opacity = 0
+        setInterval(function(){
+            this.$gameover = document.getElementById('gameover')
+            opacity += 10
+            this.$gameover.style.opacity = `${opacity}%`
+        },100)
     }
     this.checkWinCondition = function() {
         if(canvas.backgroundPosY > 9000){
