@@ -1,30 +1,37 @@
 function Car() {
-    this.$car = document.getElementById('car')
-    this.currentPos = { x: 255, y: 100 }
+    this.position = { x: 255, y: 70 }
     this.dimensions = { w: 50, h: 70 }
     this.speed = 0
+    this.checKey = false
+
+    this.$car = document.getElementById('car')
+    this.$car.style.left = `${this.position.x}px`
+    this.$car.style.bottom = `${this.position.y}px`
+    this.$car.style.width = `${this.dimensions.w}px`
+    this.$car.style.height = `${this.dimensions.h}px`
+    
     this.moveLeft = function(){
-        if(this.speed < 5.54){ this.speed += 0.22 }
-        this.currentPos.x -= this.speed;
-        this.$car.style.left = `${this.currentPos.x}px`
+        if(this.speed < 5.50){ this.speed += 0.22 }
+        this.position.x -= this.speed;
+        this.$car.style.left = `${this.position.x}px`
     }
     this.moveRight = function(){
-        if(this.speed < 5.54){ this.speed += 0.22 }
-        this.currentPos.x += this.speed;
-        this.$car.style.left = `${this.currentPos.x}px`
+        if(this.speed < 5.50){ this.speed += 0.22 }
+        this.position.x += this.speed;
+        this.$car.style.left = `${this.position.x}px`
     }
     this.inertiaLeft = function(){
-        if(this.speed > 0.22 && this.currentPos.x > 1){ 
+        if (this.speed >= 0.22 && this.position.x > 1) {
             this.speed -= 0.22 
-            this.currentPos.x -= this.speed;
-            this.$car.style.left = `${this.currentPos.x}px`
+            this.position.x -= this.speed;
+            this.$car.style.left = `${this.position.x}px`
         }
     }
     this.inertiaRight = function(){
-        if(this.speed > 0.22 && this.currentPos.x < 389){ 
+        if(this.speed > 0.22 && this.position.x < 385){ 
             this.speed -= 0.22
-            this.currentPos.x += this.speed;
-            this.$car.style.left = `${this.currentPos.x}px`
+            this.position.x += this.speed;
+            this.$car.style.left = `${this.position.x}px`
         }
     }
 }

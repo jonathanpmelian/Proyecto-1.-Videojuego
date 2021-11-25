@@ -6,26 +6,21 @@ body,html {
     margin: 0px;
     background-color: aliceblue;
 }
+/* CANVAS */
 #canvas{ 
     position: relative;
     display: flex;
-    width: 1052px;
-    min-width: 1052px;
-    height: 700px;
-    min-height: 700px;
+    width: 1500px;
+    min-width: 1500px;
+    height: 720px;
+    min-height: 720px;
     margin: auto 0px;
     background-color: honeydew;
-    background-image: url(../assets/img/roadMidSection.jpg);
+    background-image: url(../assets/img/roadNew.jpg);
     background-size: cover;
     background-position-y: 0px;
     overflow: hidden;
-}
-#road {
-    position: relative;
-    width: 443.36px;
-    height: 100%;
-    margin: auto auto;
-    /* background-color: slategray; */
+    border-radius: 10px;
 }
 #stopwatch {
     position: absolute;
@@ -33,16 +28,20 @@ body,html {
     bottom: 670px;
     color: white;
 }
+/* ROAD */
+#road {
+    position: relative;
+    width: 443.36px;
+    height: 100%;
+    margin-left: 556px;
+    /* background-color: slategray; */
+}
 #car {
     position: absolute;
-    bottom: 100px;
-    left: 255px;
-    width: 55px;
-    height: 70px;
     margin: auto auto;
     /* background-color: salmon; */
-    background-image: url(../assets/img/car2.png);
-    background-size: 100% 100%;
+    background-image: url(../assets/img/Taxi.gif);
+    background-size: cover;
 }
 .obstacle {
     position: absolute;
