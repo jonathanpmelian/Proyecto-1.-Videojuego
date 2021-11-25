@@ -6,52 +6,83 @@ body,html {
     margin: 0px;
     background-color: aliceblue;
 }
-/* De momento hay que jugar a 1255x652 px */
+/* CANVAS */
 #canvas{ 
-    display: flex;
-    width: 652px;
-    min-width: 652px;
-    height: 95%;
-    min-height: 1245.76px;
+    position: relative;
+    width: 1500px;
+    min-width: 1500px;
+    height: 720px;
+    min-height: 720px;
     margin: auto 0px;
     background-color: honeydew;
-    background-image: url(../assets/img/background-1.png);
-    background-size: 100%;
-    /* background-repeat: no-repeat; */
+    background-image: url(../assets/img/roadNew.jpg);
+    background-size: cover;
     background-position-y: 0px;
     overflow: hidden;
+    border-radius: 10px;
 }
-.landscape {
-    display: flex;
-    width: 200px;
-    min-width: 200px;
-    height: 95%;
-    min-height: 1245.76px;
-    margin: auto 0px;
-    background-color: rgb(136, 160, 134);
-    background-size: 100% ;
-    background-position-y: 0px;
-    overflow: hidden;
+#stopwatch {
+    position: absolute;
+    right: 40px;
+    bottom: 670px;
+    color: white;
 }
+#gameover {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    /* background-color: grey; */
+    opacity: 0%;
+    /* display: flex;
+    position: fixed;
+    background-color: blue;
+    width: 100%;
+    height: 100%;
+    z-index: 1; */
+    z-index: 1;
+}
+#imgGameover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    min-width: 50%;
+    min-height: 50%;
+    /* background-image: url(/assets/img/gameover.png);
+    background-size: cover;
+    width: 400px;
+    height: 400px;
+    margin: auto auto; */
+}
+/* ROAD */
 #road {
     position: relative;
-    width: 68%;
+    width: 443.36px;
     height: 100%;
-    margin: auto auto;
+    margin-left: 556px;
     /* background-color: slategray; */
+    z-index: 0;
 }
 #car {
     position: absolute;
-    bottom: 15%;
-    left: 55%;
-    width: 11.3%;
-    height: 5.62%;
     margin: auto auto;
     /* background-color: salmon; */
-    background-image: url(../assets/img/car2.png);
-    background-size: 100% 100%;
+    background-image: url(../assets/img/Taxi.gif);
+    background-size: cover;
 }
-.obstacle {
+.policeCar {
     position: absolute;
-    background-color: orange;
+    background-color: blue;
+}
+.motorbike {
+    position: absolute;
+    background-color: green;
+}
+.truck {
+    position: absolute;
+    background-color: yellow;
 }

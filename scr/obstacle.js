@@ -1,28 +1,55 @@
-function Obstacle() {
-    $obstacle: null,
-    lane: null,
-    currentPos: { y: 100 },
-    dimensions: { w: 11.3 , h: 5.62 },
-    createObstacle() {
+function Obstacle(width,height,name) {
+    this.name = name
+    this.$obstacle = null
+    this.lane = null
+    this.yPos = 720
+    this.dimensions = { w: width , h: height }
+    this.obstacleReady = 'off' //Puede ser 'off' y 'on'.
+
+    this.createDOMobstacle = function() {
         this.$obstacle = document.createElement('div')
-        let road = document.getElementById('road')
-        road.appendChild(this.$obstacle)
-        this.$obstacle.classList.add('obstacle')
+        this.road = document.getElementById('road')
+        this.road.appendChild(this.$obstacle)
+        this.$obstacle.classList.add(this.name)
         this.lane = function() {
-            let lanes = [10,33,55,78]
-            let randomLane = lanes[Math.floor(Math.random()*4)]
-            return randomLane
+            this.laneArr = [30,150,255,365]//30,150,255,365
+            this.randomLane = [Math.floor(Math.random()*4)]
+            return this.laneArr[this.randomLane]
         }();
-        this.$obstacle.style.left = `${this.lane}%`
-        this.$obstacle.style.bottom = `${this.currentPos.y}%`
-        this.$obstacle.style.width = `${this.dimensions.w}%`
-        this.$obstacle.style.height = `${this.dimensions.h}%`
-    },
-    movement() {
-        let timerObstacle = setInterval(function() {
-            this.currentPos.y -= canvas.roadSpeed/1.7; //En =1.7 fijo, >1.7 mismo sentido, <1.7 sentido contrario
-            this.$obstacle.style.bottom = `${this.currentPos.y}%`
-            if(this.currentPos.y < -20) { clearInterval(timerObstacle) }
-        }.bind(obstacle),10)
+        this.$obstacle.style.left = `${this.lane}px`
+        this.$obstacle.style.bottom = `${this.yPos}px`
+        this.$obstacle.style.width = `${this.dimensions.w}px`
+        this.$obstacle.style.height = `${this.dimensions.h}px`
+        this.obstacleReady = 'on'
+    }
+    this.movement = function() {
+        if(this.$obstacle.parentElement !== null) {
+            this.yPos -= canvas.roadSpeed; 
+            this.$obstacle.style.bottom = `${this.yPos}px`
+            if(this.yPos < -this.dimensions.h) {
+                obstacle.shift()
+                this.road.removeChild(this.$obstacle)
+                this.obstacleReady = 'off'
+                this.yPos = 720
+            }
+        }
     }
 }
+var policeCar = new Obstacle(50,70,'policeCar')
+var motorbike = new Obstacle(25,40,'motorbike')
+var truck = new Obstacle(60,140,'truck')
+/* in CSS inside every car class
+this. yPos = 100
+this.dimensions = { w: 11.3 , h: 5.62 }
+this.$obstacle.style.width = `${this.dimensions.w}px`
+this.$obstacle.style.height = `${this.dimensions.h}px`
+*/
+
+/* in unique loop inside Game?
+this.movement = function() {
+    let timerObstacle = setInterval(function() {
+        this.yPos -= canvas.roadSpeed/1.7; //En =1.7 fijo, >1.7 mismo sentido, <1.7 sentido contrario
+        this.$obstacle.style.bottom = `${this.yPos}px`
+        if(this.yPos < -20) { clearInterval(timerObstacle) }
+    }.bind(Obstacle),10)
+}*/
