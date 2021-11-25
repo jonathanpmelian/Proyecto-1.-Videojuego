@@ -43,7 +43,15 @@ body,html {
     background-image: url(../assets/img/Taxi.gif);
     background-size: cover;
 }
-.obstacle {
+.policeCar {
     position: absolute;
-    background-color: orange;
+    background-color: blue;
+}
+.motorbike {
+    position: absolute;
+    background-color: green;
+}
+.truck {
+    position: absolute;
+    background-color: yellow;
 }
