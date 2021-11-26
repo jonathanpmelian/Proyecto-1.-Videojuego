@@ -1,6 +1,6 @@
 function Canvas() {
     this.$canvas = document.getElementById('canvas')
-    this.roadSpeed = 0.004
+    this.roadSpeed = 2.8
     this.backgroundPosY = 0
     this.init = function() {
         if(this.roadSpeed < 2){ 
