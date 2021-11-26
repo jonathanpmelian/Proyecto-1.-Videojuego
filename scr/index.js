@@ -2,7 +2,17 @@ var canvas = new Canvas()
 var car = new Car()
 var obstacle = [[],[],[],[]]
 var interval10;
-
+var sequenceArr = [
+    new Servicecar(50,70,'policeCar'),
+    new Motorbike(25,40,'motorbike'),
+    new Heavycar(80,250,'truck'),
+    new Normalcar(50,70,'normalCar1'),
+    new Normalcar(50,70,'normalCar2'),
+    new Normalcar(50,70,'normalCar3'),
+    new Normalcar(50,70,'normalCar4'),
+    new Heavycar(70,100,'caravana'),
+    new Obstacle(80,80,'obstacle')
+]
 function TaxiDriverGame() {
     this.start = function(){
         game.direction()
@@ -78,25 +88,25 @@ function TaxiDriverGame() {
         });
     }
     this.obstacleSequence = function() {
-        if(obstacle[0].length === 0 && Math.random() < 0.01) {
+        if(obstacle[0].length === 0 && Math.random() < 0.1) {
            let pickLane0 = sequenceArr.shift()
            pickLane0.lane = 0
            obstacle[0].push(pickLane0)
            pickLane0.needDOM = true
         } 
-        if(obstacle[1].length === 0 && Math.random() < 0.01) {
+        if(obstacle[1].length === 0 && Math.random() < 0.1) {
             let pickLane1 = sequenceArr.shift()
             pickLane1.lane = 1
             obstacle[1].push(pickLane1)
             pickLane1.needDOM = true
         }
-        if(obstacle[2].length === 0 && Math.random() < 0.05) {
+        if(obstacle[2].length === 0 && Math.random() < 0.1) {
             let pickLane2 = sequenceArr.shift()
             pickLane2.lane = 2
             obstacle[2].push(pickLane2)
             pickLane2.needDOM = true
         }
-        if(obstacle[3].length === 0 && Math.random() < 0.05) {
+        if(obstacle[3].length === 0 && Math.random() < 0.1) {
             let pickLane3 = sequenceArr.shift()
             pickLane3.lane = 3
             obstacle[3].push(pickLane3)
@@ -132,4 +142,4 @@ function TaxiDriverGame() {
     }
 }
 const game = new TaxiDriverGame()
-// game.start()
+game.start()

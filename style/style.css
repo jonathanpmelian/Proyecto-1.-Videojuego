@@ -86,27 +86,27 @@ body,html {
     position: absolute;
     background-color: yellow;
 }
-.testCar1 {
+.normalCar1 {
     position: absolute;
     background-color: azure;
 }
-.testCar2 {
+.normalCar2 {
     position: absolute;
     background-color: aquamarine;
 }
-.testCar3 {
+.normalCar3 {
     position: absolute;
     background-color: antiquewhite;
 }
-.testCar4 {
+.normalCar4 {
     position: absolute;
     background-color: brown;
 }
-.testCar5 {
+.caravana {
     position: absolute;
     background-color: blueviolet;
 }
-.testCar6 {
+.obstacle {
     position: absolute;
     background-color: chocolate;
 }

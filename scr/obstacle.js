@@ -1,19 +1,69 @@
-//TODO: Implementar una velocidad a cada obstáculo
 function Obstacle(width,height,name) {
     this.name = name
     this.$obstacle = null
     this.lane = null
     this.yPos = 720
     this.dimensions = { w: width , h: height }
+    this.directionObs = null
     this.needDOM = false
     this.needMove = false
 }
+function Servicecar(width,height,name) {
+    this.name = name
+    this.$obstacle = null
+    this.lane = null
+    this.yPos = 720
+    this.dimensions = { w: width , h: height }
+    this.directionObs = null
+    this.needDOM = false
+    this.needMove = false
+}
+function Normalcar(width,height,name) {
+    this.name = name
+    this.$obstacle = null
+    this.lane = null
+    this.yPos = 720
+    this.dimensions = { w: width , h: height }
+    this.directionObs = null
+    this.needDOM = false
+    this.needMove = false
+}
+function Heavycar(width,height,name) {
+    this.name = name
+    this.$obstacle = null
+    this.lane = null
+    this.yPos = 720
+    this.dimensions = { w: width , h: height }
+    this.directionObs = null
+    this.needDOM = false
+    this.needMove = false
+}
+function Motorbike(width,height,name) {
+    this.name = name
+    this.$obstacle = null
+    this.lane = null
+    this.yPos = 720
+    this.dimensions = { w: width , h: height }
+    this.directionObs = null
+    this.needDOM = false
+    this.needMove = false
+}
+Servicecar.prototype = Object.create(Obstacle.prototype)
+Servicecar.prototype.constructor = Servicecar
+Normalcar.prototype = Object.create(Obstacle.prototype)
+Normalcar.prototype.constructor = Normalcar
+Heavycar.prototype = Object.create(Obstacle.prototype)
+Heavycar.prototype.constructor = Heavycar
+Motorbike.prototype = Object.create(Obstacle.prototype)
+Motorbike.prototype.constructor = Motorbike
+
 Obstacle.prototype.createDOMobstacle = function() {
     this.$obstacle = document.createElement('div')
     this.road = document.getElementById('road')
     this.road.appendChild(this.$obstacle)
     this.$obstacle.classList.add(this.name)
     this.laneStyle = [30,150,255,365][this.lane]
+    this.directionObs = this.lane === 0 || this.lane === 1 ? -1 : 1
     this.posIntoLane = this.laneStyle-Math.floor(Math.random(10)*30)
     this.$obstacle.style.left = `${this.posIntoLane}px`
     this.$obstacle.style.width = `${this.dimensions.w}px`
@@ -28,7 +78,6 @@ Obstacle.prototype.movement = function() {
         this.yPos -= canvas.roadSpeed;
         this.$obstacle.style.bottom = `${this.yPos}px`
         if(this.yPos < -this.dimensions.h) {
-            console.log(this.$obstacle)
             this.road.removeChild(this.$obstacle)
             let removed = obstacle[this.lane].shift()
             sequenceArr.push(removed)
@@ -37,14 +86,79 @@ Obstacle.prototype.movement = function() {
         }
     }
 }
-var sequenceArr = [
-    new Obstacle(50,70,'policeCar'),
-    new Obstacle(25,40,'motorbike'),
-    new Obstacle(60,200,'truck'),
-    new Obstacle(50,70,'testCar1'),
-    new Obstacle(50,70,'testCar2'),
-    new Obstacle(50,70,'testCar3'),
-    new Obstacle(50,70,'testCar4'),
-    new Obstacle(50,70,'testCar5'),
-    new Obstacle(50,70,'testCar6')
-]
+Servicecar.prototype.movement = function() {
+    if(this.$obstacle.parentElement !== null) {
+        if (this.directionObs === 1){
+            this.yPos -= canvas.roadSpeed*0.3;
+        }else {
+            this.yPos -= canvas.roadSpeed*1.8;
+        }
+        console.log(this.yPos)
+        this.$obstacle.style.bottom = `${this.yPos}px`
+        if(this.yPos < -this.dimensions.h) {
+            console.log(this.$obstacle)
+            this.road.removeChild(this.$obstacle)
+            let removed = obstacle[this.lane].shift()
+            sequenceArr.push(removed)
+            this.yPos = 720
+            this.needMove = false
+        }
+    } 
+}
+Normalcar.prototype.movement = function() {
+    if(this.$obstacle.parentElement !== null) {
+        if (this.directionObs === 1){
+            this.yPos -= canvas.roadSpeed*0.7;
+        }else {
+            this.yPos -= canvas.roadSpeed*1.3;
+        }
+        console.log(this.yPos)
+        this.$obstacle.style.bottom = `${this.yPos}px`
+        if(this.yPos < -this.dimensions.h) {
+            console.log(this.$obstacle)
+            this.road.removeChild(this.$obstacle)
+            let removed = obstacle[this.lane].shift()
+            sequenceArr.push(removed)
+            this.yPos = 720
+            this.needMove = false
+        }
+    } 
+}
+Heavycar.prototype.movement = function() {
+    if(this.$obstacle.parentElement !== null) {
+        if (this.directionObs === 1){
+            this.yPos -= canvas.roadSpeed*0.85;
+        }else {
+            this.yPos -= canvas.roadSpeed*1.15;
+        }
+        console.log(this.yPos)
+        this.$obstacle.style.bottom = `${this.yPos}px`
+        if(this.yPos < -this.dimensions.h) {
+            console.log(this.$obstacle)
+            this.road.removeChild(this.$obstacle)
+            let removed = obstacle[this.lane].shift()
+            sequenceArr.push(removed)
+            this.yPos = 720
+            this.needMove = false
+        }
+    } 
+}
+Motorbike.prototype.movement = function() {
+    if(this.$obstacle.parentElement !== null) {
+        if (this.directionObs === 1){
+            this.yPos -= canvas.roadSpeed*0.3;
+        }else {
+            this.yPos -= canvas.roadSpeed*1.8;
+        }
+        console.log(this.yPos)
+        this.$obstacle.style.bottom = `${this.yPos}px`
+        if(this.yPos < -this.dimensions.h) {
+            console.log(this.$obstacle)
+            this.road.removeChild(this.$obstacle)
+            let removed = obstacle[this.lane].shift()
+            sequenceArr.push(removed)
+            this.yPos = 720
+            this.needMove = false
+        }
+    } 
+}
