@@ -131,7 +131,7 @@ function TaxiDriverGame() {
         let opacity = 0
         setInterval(function(){
             this.$gameover = document.getElementById('gameover')
-            opacity += 10
+            opacity += 50
             this.$gameover.style.opacity = `${opacity}%`
         },100)
     }

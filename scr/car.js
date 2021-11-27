@@ -2,7 +2,7 @@ function Car() {
     this.position = { x: 255, y: 70 }
     this.dimensions = { w: 50, h: 70 }
     this.speed = 0
-
+    this.direction = 0
     this.$car = document.getElementById('car')
     this.$car.style.left = `${this.position.x}px`
     this.$car.style.bottom = `${this.position.y}px`

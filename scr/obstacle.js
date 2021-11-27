@@ -9,44 +9,16 @@ function Obstacle(width,height,name) {
     this.needMove = false
 }
 function Servicecar(width,height,name) {
-    this.name = name
-    this.$obstacle = null
-    this.lane = null
-    this.yPos = 720
-    this.dimensions = { w: width , h: height }
-    this.directionObs = null
-    this.needDOM = false
-    this.needMove = false
+    Obstacle.call(this, width, height, name)
 }
 function Normalcar(width,height,name) {
-    this.name = name
-    this.$obstacle = null
-    this.lane = null
-    this.yPos = 720
-    this.dimensions = { w: width , h: height }
-    this.directionObs = null
-    this.needDOM = false
-    this.needMove = false
+   Obstacle.call(this, width, height, name)
 }
 function Heavycar(width,height,name) {
-    this.name = name
-    this.$obstacle = null
-    this.lane = null
-    this.yPos = 720
-    this.dimensions = { w: width , h: height }
-    this.directionObs = null
-    this.needDOM = false
-    this.needMove = false
+   Obstacle.call(this, width, height, name)
 }
 function Motorbike(width,height,name) {
-    this.name = name
-    this.$obstacle = null
-    this.lane = null
-    this.yPos = 720
-    this.dimensions = { w: width , h: height }
-    this.directionObs = null
-    this.needDOM = false
-    this.needMove = false
+    Obstacle.call(this, width, height, name)
 }
 Servicecar.prototype = Object.create(Obstacle.prototype)
 Servicecar.prototype.constructor = Servicecar
