@@ -65,10 +65,10 @@ Servicecar.prototype.movement = function() {
         }else {
             this.yPos -= canvas.roadSpeed*1.8;
         }
-        console.log(this.yPos)
+        
         this.$obstacle.style.bottom = `${this.yPos}px`
         if(this.yPos < -this.dimensions.h) {
-            console.log(this.$obstacle)
+            
             this.road.removeChild(this.$obstacle)
             let removed = obstacle[this.lane].shift()
             sequenceArr.push(removed)
@@ -84,10 +84,10 @@ Normalcar.prototype.movement = function() {
         }else {
             this.yPos -= canvas.roadSpeed*1.3;
         }
-        console.log(this.yPos)
+        
         this.$obstacle.style.bottom = `${this.yPos}px`
         if(this.yPos < -this.dimensions.h) {
-            console.log(this.$obstacle)
+            
             this.road.removeChild(this.$obstacle)
             let removed = obstacle[this.lane].shift()
             sequenceArr.push(removed)
@@ -103,10 +103,10 @@ Heavycar.prototype.movement = function() {
         }else {
             this.yPos -= canvas.roadSpeed*1.15;
         }
-        console.log(this.yPos)
+        
         this.$obstacle.style.bottom = `${this.yPos}px`
         if(this.yPos < -this.dimensions.h) {
-            console.log(this.$obstacle)
+            
             this.road.removeChild(this.$obstacle)
             let removed = obstacle[this.lane].shift()
             sequenceArr.push(removed)
@@ -122,10 +122,10 @@ Motorbike.prototype.movement = function() {
         }else {
             this.yPos -= canvas.roadSpeed*1.8;
         }
-        console.log(this.yPos)
+        
         this.$obstacle.style.bottom = `${this.yPos}px`
         if(this.yPos < -this.dimensions.h) {
-            console.log(this.$obstacle)
+            
             this.road.removeChild(this.$obstacle)
             let removed = obstacle[this.lane].shift()
             sequenceArr.push(removed)

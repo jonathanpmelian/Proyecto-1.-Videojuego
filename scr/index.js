@@ -66,6 +66,8 @@ function TaxiDriverGame() {
                 car.speed = 0;
             }
             if(event.key === 'a' && car.position.x > 1){
+                car.direction = -1
+                
                 car.moveLeft()
                 setTimeout(clearInterval,400,timerDelay)
             } else if(event.key === 'd' && car.position.x < 388) {
