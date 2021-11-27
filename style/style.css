@@ -20,44 +20,104 @@ body,html {
     background-position-y: 0px;
     overflow: hidden;
     border-radius: 10px;
+    object-fit: contain;
+
 }
 #stopwatch {
     position: absolute;
-    right: 40px;
+    right: 140px;
     bottom: 670px;
     color: white;
 }
-#gameover {
+#gameOver, #youWin, #startScreen{
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    /* background-color: grey; */
-    opacity: 0%;
-    /* display: flex;
-    position: fixed;
-    background-color: blue;
+    display:inline-block;
+    align-content: center;
     width: 100%;
     height: 100%;
-    z-index: 1; */
-    z-index: 1;
+    /* background-color: grey; */
+    
 }
-#imgGameover {
+
+#gameOver{
+    z-index: 100;
+    opacity: 10%; /*change when it's ready*/
+}
+
+#gameOver img {
+    position: relative;
+    /* border: 2px solid red; */
+    display: block;
+    margin: 0 auto;
+    width: 40%;
+    top: -100px;
+}
+.btnContainer{
+    /* border: 3px solid green; */
+    display: flex;
+    justify-content: center;
+    top: -100px;
+}
+#gameOver button{
+    width: 500px;
+}
+
+#youWin{
+    /* border: 2px solid blue; */
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    min-width: 50%;
-    min-height: 50%;
-    /* background-image: url(/assets/img/gameover.png);
-    background-size: cover;
-    width: 400px;
-    height: 400px;
-    margin: auto auto; */
+    z-index: 200;
+    opacity: 30%; /*change when it's ready*/
 }
+
+#youWin img{
+    position: relative;
+    /* border: 2px solid red; */
+    display: block;
+    margin: 0 auto;
+    width: 30%;
+
+}
+
+#youWin button{
+    width: 500px;
+}
+
+#startScreen{
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 300;
+    opacity: 100%; /*this is the starting screen, should have SOME opacity*/
+}
+
+#startScreen img{
+    position: relative;
+    display: block;
+    margin: 150px auto;
+}
+#instructions{
+    width: 500px;
+    margin: 0 auto;
+    margin-top: -100px;
+    line-height: 40px;
+    background-color: hsla(100, 0, 55, 0.5);
+}
+
+#startScreen p{
+    text-align: center;
+    color: white;
+    text-shadow: 3px gray;
+    font-size: 20px;
+    background-color: hsla(100, 0, 55, 0.5);
+}
+
+#startScreen>.btnContainer{
+    height: 100px;
+}
+
+#startBtn{
+    width: 150px;
+    border-radius: 15%;
+}
+    
 /* ROAD */
 #road {
     position: relative;

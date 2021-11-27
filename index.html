@@ -13,18 +13,52 @@
 </head>
 <body>
     <div id="canvas">
-        <div id="gameover">
-            <img id='imgGameover' src="/assets/img/gameover.png" alt="">
+        
+        <div id="gameOver">
+            <img id='imgGameover' src="assets/img/gameover.png" alt="">
+            <p>
+            <div class="btnContainer"> 
+                <button id="restartBtn">Restart</button>
+            </div>
+            </p>
+        </div>
+        <div id="youWin">
+            <img src="assets/img/youwin.png" alt="">
+            <div class="btnContainer"> 
+                <button id="nextLvlBtn">Next level!</button>
+            </div>
+        </div>
+        
+        <div id="startScreen">
+            <img src="assets/img/RebootDriver.png" alt="">
+            <section id="instructions">
+                <p>
+                    Usa <button>A</button> y <button>D</button> para girar a la izquierda y la derecha, 
+                </p>
+                <p>
+                    y evita todos los vehículos.
+                </p>
+                <p>
+                    ¡Llega a Reboot Academy antes de que se acabe el tiempo!
+                </p>
+            </section>
+            <p>
+                <div class="btnContainer"> 
+                    <button id="startBtn">Start!</button>
+                </div>
+            </p>
         </div>
         <div id="road">
             <div id="car"></div>
         </div>
+            
+    
         <div id="stopwatch">
             <span id="minute">01</span> ' :
             <span id="second">00</span> " :
             <span id="milisecond">00</span> 
         </div>
     </div>
-    </div>
+    
 </body>
 </html>
