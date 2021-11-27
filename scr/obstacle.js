@@ -41,7 +41,9 @@ Obstacle.prototype.createDOMobstacle = function() {
     this.$obstacle.style.width = `${this.dimensions.w}px`
     this.$obstacle.style.height = `${this.dimensions.h}px`
     this.$obstacle.style.bottom = `${this.yPos}px`
-    this.$obstacle.innerText = `${this.name}`
+    if(this.name !== 'obstacle') {
+        this.$obstacle.style.transform = this.directionObs === 1 ? `rotateX(${0}deg)` : `rotateX(${180}deg)`
+    }
     this.needDOM = false
     this.needMove = true
 }

@@ -4,7 +4,7 @@ var obstacle = [[],[],[],[]]
 var interval10;
 var sequenceArr = [
     new Servicecar(50,70,'policeCar'),
-    new Motorbike(25,40,'motorbike'),
+    new Motorbike(35,50,'motorbike'),
     new Heavycar(80,250,'truck'),
     new Normalcar(50,70,'normalCar1'),
     new Normalcar(50,70,'normalCar2'),
@@ -66,8 +66,7 @@ function TaxiDriverGame() {
                 car.speed = 0;
             }
             if(event.key === 'a' && car.position.x > 1){
-                car.direction = -1
-                
+                // car.direction = -1
                 car.moveLeft()
                 setTimeout(clearInterval,400,timerDelay)
             } else if(event.key === 'd' && car.position.x < 388) {
