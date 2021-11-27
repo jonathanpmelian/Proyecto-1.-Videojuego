@@ -15,7 +15,7 @@ body,html {
     min-height: 720px;
     margin: auto 0px;
     background-color: honeydew;
-    background-image: url(../assets/img/roadNew.jpg);
+    background-image: url(../assets/img/roadNew2.jpg);
     background-size: cover;
     background-position-y: 0px;
     overflow: hidden;
@@ -76,35 +76,43 @@ body,html {
 }
 .policeCar {
     position: absolute;
-    background-color: blue;
+    background-image: url(../assets/img/CochePolicia.gif);
+    background-size: cover;
 }
 .motorbike {
     position: absolute;
-    background-color: green;
+    background-image: url(../assets/img/moto.gif);
+    background-size: cover;
 }
 .truck {
     position: absolute;
-    background-color: yellow;
+    background-image: url(../assets/img/Camion.gif);
+    background-size: cover;
 }
 .normalCar1 {
     position: absolute;
-    background-color: azure;
+    background-image: url(../assets/img/cochenormal1.gif);
+    background-size: cover;
 }
 .normalCar2 {
     position: absolute;
-    background-color: aquamarine;
+    background-image: url(../assets/img/cochenormal2.gif);
+    background-size: cover;
 }
 .normalCar3 {
     position: absolute;
-    background-color: antiquewhite;
+    background-image: url(../assets/img/cochenormal3.gif);
+    background-size: cover;
 }
 .normalCar4 {
     position: absolute;
-    background-color: brown;
+    background-image: url(../assets/img/cochenormal4.gif);
+    background-size: cover;
 }
 .caravana {
     position: absolute;
-    background-color: blueviolet;
+    background-image: url(../assets/img/caravana.gif);
+    background-size: cover;
 }
 .obstacle {
     position: absolute;
