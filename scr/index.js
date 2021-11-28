@@ -1,7 +1,5 @@
 var canvas = new Canvas()
 var car = new Car()
-var obstacle = [[],[],[],[]]
-var interval10;
 var sequenceArr = [
     new Servicecar(50,70,'policeCar'),
     new Motorbike(35,50,'motorbike'),
@@ -13,12 +11,16 @@ var sequenceArr = [
     new Heavycar(70,100,'caravana'),
     new Obstacle(80,80,'obstacle')
 ]
+var obstacle = [[],[],[],[]]
+var counter = 7775
+var interval10;
+
 function TaxiDriverGame() {
     this.start = function(){
         game.direction()
         interval10 = setInterval(function() {
             canvas.init()
-            game.stopwatch()
+            canvas.stopwatch()
             game.obstacleSequence()
             obstacle.forEach(function(elem) {
                 if(elem[0] !== undefined && elem[0].needDOM) {
@@ -33,30 +35,6 @@ function TaxiDriverGame() {
             game.checkCollision()
             game.checkWinCondition()
         },10)
-    }
-    this.stopwatch = function(){
-        let $minute = document.getElementById('minute')
-        let minute = parseInt($minute.innerText);
-        let $second = document.getElementById('second')
-        let second = parseInt($second.innerText);
-        let $milisecond = document.getElementById('milisecond');
-        let milisecond = parseInt($milisecond.innerText)
-
-        if(minute === 0 && second === 0 && milisecond < 1){
-            game.gameOver()
-        }else if(milisecond === 0 && second === 0){
-            minute--
-            second = 59
-            milisecond = 99
-        }else if(milisecond === 0){
-            second--
-            milisecond = 99
-        }
-        milisecond--
-        $milisecond.innerText = milisecond < 10 ? `0${milisecond.toString()}`:
-        milisecond < 1 ? `00`:`${milisecond.toString()}`
-        $second.innerText = second < 10 ? `0${second.toString()}`:`${second.toString()}`
-        $minute.innerText = minute < 10 ? `0${minute.toString()}`:`${minute.toString()}`
     }
     this.direction = function(){
         let timerDelay;
@@ -131,14 +109,18 @@ function TaxiDriverGame() {
         clearInterval(interval10)
         let opacity = 0
         setInterval(function(){
-            this.$gameover = document.getElementById('gameover')
+            this.$gameover = document.getElementById('gameOver')
             opacity += 50
             this.$gameover.style.opacity = `${opacity}%`
         },100)
     }
     this.checkWinCondition = function() {
-        if(canvas.backgroundPosY > 12000){
+        let $distance = document.getElementById('distance')
+        if(counter < 0){
             alert('You Win!')
+        } else {
+            counter--
+            $distance.innerText = `Destination: ${Math.round(counter/15.55)} m`
         }
     }
 }
