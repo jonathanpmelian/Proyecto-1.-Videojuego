@@ -20,12 +20,12 @@ var interval300;
 function TaxiDriverGame() {
     this.level = 1
     this.start = function(){
-        // ingameTheme.play()
+        ingameTheme.play()
         interval300 = setInterval(function(){
             canvas.passenger()
         },300)
         sequenceArr.sort(() => 0.5 - Math.random())
-        setTimeout(game.direction,4500)
+        setTimeout(game.unlockControls,4500)
         interval10 = setInterval(function() {
             if(canvas.ready){
                 canvas.init()
@@ -44,44 +44,68 @@ function TaxiDriverGame() {
                     elem[0].movement()
                 }
             })
+            
+            car.move()
+            
         },10)
     }
-    this.direction = function(){
-        let timerInertiaDelay;
-        document.addEventListener('keydown', function(event){
-            if(car.position.x <= 1 || car.position.x >= 388) {
-                clearInterval(timerInertiaDelay)
-                car.lateralQuick = 0;
+    this.unlockControls = function(){
+        window.addEventListener('keydown', function(event) {
+            if (event.key === 'a') {
+                car.direction = -1
             }
-            if(event.key === 'a' && car.position.x > 1){
-                // car.direction = -1
-                car.moveLeft()
-                setTimeout(clearInterval,400,timerInertiaDelay)
-            } else if(event.key === 'd' && car.position.x < 388) {
-                car.moveRight()
-                setTimeout(clearInterval,400,timerInertiaDelay)
+            if (event.key === 'd') {
+                car.direction = 1
             }
             if(event.key === 'w') {
                 car.speed = 'on'
             }
         });
-        document.addEventListener('keyup', function(event){
-            if(car.position.x <= 1 || car.position.x >= 388) { 
-                clearInterval(timerInertiaDelay) 
-                car.lateralQuick = 0;
-            }
-            if(event.key === 'a' && car.position.x > 1){
-                timerInertiaDelay = setInterval(car.inertiaLeft.bind(car),20)
-                setTimeout(clearInterval,500,timerInertiaDelay)
-            } else if(event.key === 'd' && car.position.x < 388) {
-                timerInertiaDelay = setInterval(car.inertiaRight.bind(car),20)
-                setTimeout(clearInterval,500,timerInertiaDelay)
+        
+        window.addEventListener('keyup', function(event) {
+            if (event.key === 'a' || event.key === 'd') {
+                car.direction = 0
             }
             if(event.key === 'w') {
                 car.speed = 'off'
-                // drive.play()
             }
-        });
+        })
+
+    //     let timerInertiaDelay;
+    //     document.addEventListener('keydown', function(event){
+    //         if(car.position.x <= 1 || car.position.x >= 388) {
+    //             clearInterval(timerInertiaDelay)
+    //             car.lateralSpeed = 0;
+    //         }
+    //         if(event.key === 'a' && car.position.x > 1){
+    //             // car.direction = -1
+    //             car.moveLeft()
+    //             setTimeout(clearInterval,400,timerInertiaDelay)
+    //         } else if(event.key === 'd' && car.position.x < 388) {
+    //             car.moveRight()
+    //             setTimeout(clearInterval,400,timerInertiaDelay)
+    //         }
+    //         if(event.key === 'w') {
+    //             car.speed = 'on'
+    //         }
+    //     });
+    //     document.addEventListener('keyup', function(event){
+    //         if(car.position.x <= 1 || car.position.x >= 388) { 
+    //             clearInterval(timerInertiaDelay) 
+    //             car.lateralSpeed = 0;
+    //         }
+    //         if(event.key === 'a' && car.position.x > 1){
+    //             timerInertiaDelay = setInterval(car.inertiaLeft.bind(car),20)
+    //             setTimeout(clearInterval,500,timerInertiaDelay)
+    //         } else if(event.key === 'd' && car.position.x < 388) {
+    //             timerInertiaDelay = setInterval(car.inertiaRight.bind(car),20)
+    //             setTimeout(clearInterval,500,timerInertiaDelay)
+    //         }
+    //         if(event.key === 'w') {
+    //             car.speed = 'off'
+    //             drive.play()
+    //         }
+    //     });
     }
     this.obstacleSequence = function() {
         if(obstacle[0].length === 0 && Math.random() < 0.1) {

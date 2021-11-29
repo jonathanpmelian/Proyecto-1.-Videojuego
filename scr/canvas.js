@@ -6,6 +6,7 @@ function Canvas() {
     this.boyposX = 1105
     this.ready = false
     this.init = function() {
+        console.log('car speed: ', car.speed)
         if(car.acceleration < this.roadSpeed && car.speed === 'on'){ 
             car.acceleration += 0.14
             this.backgroundPosY += car.acceleration
