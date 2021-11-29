@@ -93,7 +93,7 @@ Servicecar.prototype.movement = function() {
         if (this.directionObs === 1){
             this.yPos -= car.acceleration*0.3;
         }else {
-            this.yPos -= car.acceleration*1.8;
+            this.yPos -= car.acceleration*2.8;
         }
         this.$obstacle.style.bottom = `${this.yPos}px`
         if(this.yPos < -this.dimensions.h) {
@@ -133,7 +133,7 @@ Normalcar.prototype.movement = function() {
         if (this.directionObs === 1){
             this.yPos -= car.acceleration*0.7;
         }else {
-            this.yPos -= car.acceleration*1.3;
+            this.yPos -= car.acceleration*2.3;
         }
         this.$obstacle.style.bottom = `${this.yPos}px`
         if(this.yPos < -this.dimensions.h) {
@@ -155,7 +155,7 @@ Normalcar.prototype.movement = function() {
                 this.yPos = 720
                 this.needMove = false
             }
-        }else {
+        } else {
             this.yPos -= canvas.roadSpeed*1.3;
             this.$obstacle.style.bottom = `${this.yPos}px`
             if(this.yPos < -this.dimensions.h) {
@@ -172,8 +172,8 @@ Heavycar.prototype.movement = function() {
     if(car.speed === 'on' && this.$obstacle.parentElement !== null) {
         if (this.directionObs === 1){
             this.yPos -= car.acceleration*0.85;
-        }else {
-            this.yPos -= car.acceleration*1.15;
+        } else {
+            this.yPos -= car.acceleration*2.15;
         }
         this.$obstacle.style.bottom = `${this.yPos}px`
         if(this.yPos < -this.dimensions.h) { 
@@ -195,7 +195,7 @@ Heavycar.prototype.movement = function() {
                 this.yPos = 720
                 this.needMove = false
             }
-        }else {
+        } else {
             this.yPos -= canvas.roadSpeed*1.15;
             this.$obstacle.style.bottom = `${this.yPos}px`
             if(this.yPos < -this.dimensions.h) {
@@ -213,7 +213,7 @@ Motorbike.prototype.movement = function() {
         if (this.directionObs === 1){
             this.yPos -= car.acceleration*0.3;
         }else {
-            this.yPos -= car.acceleration*1.8;
+            this.yPos -= car.acceleration*2.8;
         }
         this.$obstacle.style.bottom = `${this.yPos}px`
         if(this.yPos < -this.dimensions.h) {

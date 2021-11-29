@@ -1,7 +1,7 @@
 function Car() {
     this.position = { x: 385, y: 70 }
     this.dimensions = { w: 50, h: 70 }
-    this.lateralSpeed = 0.1
+    this.lateralSpeed = 0
     this.speed = 'off'
     this.acceleration = 0
     this.direction = 0
@@ -12,9 +12,15 @@ function Car() {
     this.$car.style.height = `${this.dimensions.h}px`
 
     this.move = function() {
-        if (car.position.x >= 1 && car.position.x <= 388) {
-            if(this.lateralSpeed < 3.50) { this.lateralSpeed += 0.1 }
+        if (car.position.x > 1 && car.position.x < 388) {
+            if(this.lateralSpeed < 3.50 && car.direction != 0) { this.lateralSpeed += 0.1 }
                 this.position.x += this.lateralSpeed * this.direction;
+                this.$car.style.left = `${this.position.x}px`
+            } else if (car.position.x > 388){
+                this.position.x = 387
+                this.$car.style.left = `${this.position.x}px`
+            } else if (car.position.x < 1){
+                this.position.x = 2
                 this.$car.style.left = `${this.position.x}px`
         }
     }

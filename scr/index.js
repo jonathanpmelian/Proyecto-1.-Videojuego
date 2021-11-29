@@ -1,4 +1,5 @@
 //En .checkWinCondition la relación px/m es 15.55 en base a que un coche común tiene un largo de 4.5m que equivale a 70px en el juego.
+var drive = document.getElementById('drive')
 var canvas = new Canvas()
 var car = new Car()
 var sequenceArr = [
@@ -17,10 +18,12 @@ var counter = 7775 //Distancia del primer viaje en px.
 var interval10;
 var interval300;
 
+
 function TaxiDriverGame() {
     this.level = 1
     this.start = function(){
-        ingameTheme.play()
+        
+        mainMenu.play()
         interval300 = setInterval(function(){
             canvas.passenger()
         },300)
@@ -44,8 +47,10 @@ function TaxiDriverGame() {
                     elem[0].movement()
                 }
             })
-            
-            car.move()
+            if (car.direction != 0){
+                car.move()
+            }
+            console.log(car.direction, car.position.x)
             
         },10)
     }
@@ -65,6 +70,7 @@ function TaxiDriverGame() {
         window.addEventListener('keyup', function(event) {
             if (event.key === 'a' || event.key === 'd') {
                 car.direction = 0
+                car.lateralSpeed = 0
             }
             if(event.key === 'w') {
                 car.speed = 'off'
@@ -136,10 +142,10 @@ function TaxiDriverGame() {
     this.checkCollision = function() {
         for(let i = 0 ; i < obstacle.length ; i++) {
             for(let j = 0 ; j < obstacle[i].length ; j++) {
-                if(car.position.x < (obstacle[i][j].posIntoLane + obstacle[i][j].dimensions.w) &&
-                car.position.y < (obstacle[i][j].yPos+ obstacle[i][j].dimensions.h) &&
-                (car.position.x + car.dimensions.w) > obstacle[i][j].posIntoLane &&
-                (car.position.y + car.dimensions.h) > obstacle[i][j].yPos
+                if((car.position.x + 5) < (obstacle[i][j].posIntoLane + obstacle[i][j].dimensions.w) &&
+                (car.position.y + 5) < (obstacle[i][j].yPos+ obstacle[i][j].dimensions.h) &&
+                (car.position.x + car.dimensions.w) > (obstacle[i][j].posIntoLane + 5) &&
+                (car.position.y + car.dimensions.h) > (obstacle[i][j].yPos + 5)
                 ) {
                     game.gameOver()//Esto debería activar un interruptor, no la función.
                 }
@@ -171,3 +177,7 @@ function TaxiDriverGame() {
 }
 const game = new TaxiDriverGame()
 game.start()
+
+const startBtn = document
+const resetBtn = document
+const nextLvl = document
