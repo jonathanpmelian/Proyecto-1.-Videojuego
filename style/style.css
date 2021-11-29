@@ -105,22 +105,38 @@ body,html {
     width: 150px;
     border-radius: 15%;
 }
+#passenger {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    bottom: 75px;
+    background-image: url(/assets/img/characterleft1.gif);
+}
+#passengercall {
+    position: absolute;
+    width: 40px;
+    height: 80px;
+    bottom: 75px;
+    left: 1105px;
+    background-image: url(/assets/img/charactercall.gif);
+}
 /* ROAD */
 #road {
     position: relative;
     width: 443.36px;
     height: 100%;
     margin-left: 556px;
-    /* background-color: slategray; */
     overflow: hidden;
+    /* background-color: slategray; */
 }
 #car {
     position: absolute;
     margin: auto auto;
-    /* background-color: salmon; */
     background-image: url(../assets/img/Taxi.gif);
     background-size: cover;
+    /* background-color: salmon; */
 }
+/*OBSTACLES*/
 .policeCar {
     position: absolute;
     background-image: url(../assets/img/CochePolicia.gif);

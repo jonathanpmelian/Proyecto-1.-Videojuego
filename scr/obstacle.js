@@ -12,10 +12,10 @@ function Servicecar(width,height,name) {
     Obstacle.call(this, width, height, name)
 }
 function Normalcar(width,height,name) {
-   Obstacle.call(this, width, height, name)
+    Obstacle.call(this, width, height, name)
 }
 function Heavycar(width,height,name) {
-   Obstacle.call(this, width, height, name)
+    Obstacle.call(this, width, height, name)
 }
 function Motorbike(width,height,name) {
     Obstacle.call(this, width, height, name)
@@ -53,9 +53,30 @@ Obstacle.prototype.createDOMobstacle = function() {
     this.needMove = true
 }
 Obstacle.prototype.movement = function() {
-    if(car.speed === 'on') {
-        if(this.$obstacle.parentElement !== null) {
-            this.yPos -= car.acceleration;
+    if(car.speed === 'on' && this.$obstacle.parentElement !== null) {
+        this.yPos -= car.acceleration;
+        this.$obstacle.style.bottom = `${this.yPos}px`
+        if(this.yPos < -this.dimensions.h) {
+            this.road.removeChild(this.$obstacle)
+            let removed = obstacle[this.lane].shift()
+            sequenceArr.push(removed)
+            this.yPos = 720
+            this.needMove = false
+        }
+    }
+    if(car.speed === 'off' && this.$obstacle.parentElement !== null){
+        if (this.directionObs === 1){
+            this.yPos -= 0;
+            this.$obstacle.style.bottom = `${this.yPos}px`
+            if(this.yPos > 720 + this.dimensions.h) {
+                this.road.removeChild(this.$obstacle)
+                let removed = obstacle[this.lane].shift()
+                sequenceArr.push(removed)
+                this.yPos = 720
+                this.needMove = false
+            }
+        }else {
+            this.yPos -= 0;
             this.$obstacle.style.bottom = `${this.yPos}px`
             if(this.yPos < -this.dimensions.h) {
                 this.road.removeChild(this.$obstacle)
@@ -64,42 +85,38 @@ Obstacle.prototype.movement = function() {
                 this.yPos = 720
                 this.needMove = false
             }
-        } 
-    }
-    if(car.speed === 'off'){
-        if(this.$obstacle.parentElement !== null) {
-            if (this.directionObs === 1){
-                this.yPos -= 0;
-                this.$obstacle.style.bottom = `${this.yPos}px`
-                if(this.yPos > 720 + this.dimensions.h) {
-                    this.road.removeChild(this.$obstacle)
-                    let removed = obstacle[this.lane].shift()
-                    sequenceArr.push(removed)
-                    this.yPos = 720
-                    this.needMove = false
-                }
-            }else {
-                this.yPos -= 0;
-                this.$obstacle.style.bottom = `${this.yPos}px`
-                if(this.yPos < -this.dimensions.h) {
-                    this.road.removeChild(this.$obstacle)
-                    let removed = obstacle[this.lane].shift()
-                    sequenceArr.push(removed)
-                    this.yPos = 720
-                    this.needMove = false
-                }
-            }
-        } 
+        }
     }
 }
 Servicecar.prototype.movement = function() {
-    if(car.speed === 'on') {
-        if(this.$obstacle.parentElement !== null) {
-            if (this.directionObs === 1){
-                this.yPos -= car.acceleration*0.3;
-            }else {
-                this.yPos -= car.acceleration*1.8;
+    if(car.speed === 'on' && this.$obstacle.parentElement !== null) {
+        if (this.directionObs === 1){
+            this.yPos -= car.acceleration*0.3;
+        }else {
+            this.yPos -= car.acceleration*1.8;
+        }
+        this.$obstacle.style.bottom = `${this.yPos}px`
+        if(this.yPos < -this.dimensions.h) {
+            this.road.removeChild(this.$obstacle)
+            let removed = obstacle[this.lane].shift()
+            sequenceArr.push(removed)
+            this.yPos = 720
+            this.needMove = false
+        }
+    }
+    if(car.speed === 'off' && this.$obstacle.parentElement !== null){
+        if (this.directionObs === 1){
+            this.yPos += canvas.roadSpeed*1.8;
+            this.$obstacle.style.bottom = `${this.yPos}px`
+            if(this.yPos > 720 + this.dimensions.h) {
+                this.road.removeChild(this.$obstacle)
+                let removed = obstacle[this.lane].shift()
+                sequenceArr.push(removed)
+                this.yPos = 720
+                this.needMove = false
             }
+        }else {
+            this.yPos -= canvas.roadSpeed*1.8;
             this.$obstacle.style.bottom = `${this.yPos}px`
             if(this.yPos < -this.dimensions.h) {
                 this.road.removeChild(this.$obstacle)
@@ -108,42 +125,38 @@ Servicecar.prototype.movement = function() {
                 this.yPos = 720
                 this.needMove = false
             }
-        } 
-    }
-    if(car.speed === 'off'){
-        if(this.$obstacle.parentElement !== null) {
-            if (this.directionObs === 1){
-                this.yPos += canvas.roadSpeed*1.8;
-                this.$obstacle.style.bottom = `${this.yPos}px`
-                if(this.yPos > 720 + this.dimensions.h) {
-                    this.road.removeChild(this.$obstacle)
-                    let removed = obstacle[this.lane].shift()
-                    sequenceArr.push(removed)
-                    this.yPos = 720
-                    this.needMove = false
-                }
-            }else {
-                this.yPos -= canvas.roadSpeed*1.8;
-                this.$obstacle.style.bottom = `${this.yPos}px`
-                if(this.yPos < -this.dimensions.h) {
-                    this.road.removeChild(this.$obstacle)
-                    let removed = obstacle[this.lane].shift()
-                    sequenceArr.push(removed)
-                    this.yPos = 720
-                    this.needMove = false
-                }
-            }
-        } 
+        }
     }
 }
 Normalcar.prototype.movement = function() {
-    if(car.speed === 'on') {
-        if(this.$obstacle.parentElement !== null) {
-            if (this.directionObs === 1){
-                this.yPos -= car.acceleration*0.7;
-            }else {
-                this.yPos -= car.acceleration*1.3;
+    if(car.speed === 'on' && this.$obstacle.parentElement !== null) {
+        if (this.directionObs === 1){
+            this.yPos -= car.acceleration*0.7;
+        }else {
+            this.yPos -= car.acceleration*1.3;
+        }
+        this.$obstacle.style.bottom = `${this.yPos}px`
+        if(this.yPos < -this.dimensions.h) {
+            this.road.removeChild(this.$obstacle)
+            let removed = obstacle[this.lane].shift()
+            sequenceArr.push(removed)
+            this.yPos = 720
+            this.needMove = false
+        }
+    }
+    if(car.speed === 'off' && this.$obstacle.parentElement !== null){
+        if (this.directionObs === 1){
+            this.yPos += canvas.roadSpeed*1.3;
+            this.$obstacle.style.bottom = `${this.yPos}px`
+            if(this.yPos > 720 + this.dimensions.h) {
+                this.road.removeChild(this.$obstacle)
+                let removed = obstacle[this.lane].shift()
+                sequenceArr.push(removed)
+                this.yPos = 720
+                this.needMove = false
             }
+        }else {
+            this.yPos -= canvas.roadSpeed*1.3;
             this.$obstacle.style.bottom = `${this.yPos}px`
             if(this.yPos < -this.dimensions.h) {
                 this.road.removeChild(this.$obstacle)
@@ -152,120 +165,87 @@ Normalcar.prototype.movement = function() {
                 this.yPos = 720
                 this.needMove = false
             }
-        } 
-    }
-    if(car.speed === 'off'){
-        if(this.$obstacle.parentElement !== null) {
-            if (this.directionObs === 1){
-                this.yPos += canvas.roadSpeed*1.3;
-                this.$obstacle.style.bottom = `${this.yPos}px`
-                if(this.yPos > 720 + this.dimensions.h) {
-                    this.road.removeChild(this.$obstacle)
-                    let removed = obstacle[this.lane].shift()
-                    sequenceArr.push(removed)
-                    this.yPos = 720
-                    this.needMove = false
-                }
-            }else {
-                this.yPos -= canvas.roadSpeed*1.3;
-                this.$obstacle.style.bottom = `${this.yPos}px`
-                if(this.yPos < -this.dimensions.h) {
-                    this.road.removeChild(this.$obstacle)
-                    let removed = obstacle[this.lane].shift()
-                    sequenceArr.push(removed)
-                    this.yPos = 720
-                    this.needMove = false
-                }
-            }
-        } 
+        }
     }
 }
 Heavycar.prototype.movement = function() {
-    if(car.speed === 'on') {
-        if(this.$obstacle.parentElement !== null) {
-            if (this.directionObs === 1){
-                this.yPos -= car.acceleration*0.85;
-            }else {
-                this.yPos -= car.acceleration*1.15;
-            }
+    if(car.speed === 'on' && this.$obstacle.parentElement !== null) {
+        if (this.directionObs === 1){
+            this.yPos -= car.acceleration*0.85;
+        }else {
+            this.yPos -= car.acceleration*1.15;
+        }
+        this.$obstacle.style.bottom = `${this.yPos}px`
+        if(this.yPos < -this.dimensions.h) { 
+            this.road.removeChild(this.$obstacle)
+            let removed = obstacle[this.lane].shift()
+            sequenceArr.push(removed)
+            this.yPos = 720
+            this.needMove = false
+        }
+    }
+    if(car.speed === 'off' && this.$obstacle.parentElement !== null){
+        if (this.directionObs === 1){
+            this.yPos += canvas.roadSpeed*1.15;
             this.$obstacle.style.bottom = `${this.yPos}px`
-            if(this.yPos < -this.dimensions.h) { 
+            if(this.yPos > 720 + this.dimensions.h) {
                 this.road.removeChild(this.$obstacle)
                 let removed = obstacle[this.lane].shift()
                 sequenceArr.push(removed)
                 this.yPos = 720
                 this.needMove = false
             }
-        } 
-    }
-    if(car.speed === 'off'){
-        if(this.$obstacle.parentElement !== null) {
-            if (this.directionObs === 1){
-                this.yPos += canvas.roadSpeed*1.15;
-                this.$obstacle.style.bottom = `${this.yPos}px`
-                if(this.yPos > 720 + this.dimensions.h) {
-                    this.road.removeChild(this.$obstacle)
-                    let removed = obstacle[this.lane].shift()
-                    sequenceArr.push(removed)
-                    this.yPos = 720
-                    this.needMove = false
-                }
-            }else {
-                this.yPos -= canvas.roadSpeed*1.15;
-                this.$obstacle.style.bottom = `${this.yPos}px`
-                if(this.yPos < -this.dimensions.h) {
-                    this.road.removeChild(this.$obstacle)
-                    let removed = obstacle[this.lane].shift()
-                    sequenceArr.push(removed)
-                    this.yPos = 720
-                    this.needMove = false
-                }
+        }else {
+            this.yPos -= canvas.roadSpeed*1.15;
+            this.$obstacle.style.bottom = `${this.yPos}px`
+            if(this.yPos < -this.dimensions.h) {
+                this.road.removeChild(this.$obstacle)
+                let removed = obstacle[this.lane].shift()
+                sequenceArr.push(removed)
+                this.yPos = 720
+                this.needMove = false
             }
-        } 
+        }
     }
 }
 Motorbike.prototype.movement = function() {
-    if(car.speed === 'on') {
-        if(this.$obstacle.parentElement !== null) {
-            if (this.directionObs === 1){
-                this.yPos -= car.acceleration*0.3;
-            }else {
-                this.yPos -= car.acceleration*1.8;
-            }
+    if(car.speed === 'on' && this.$obstacle.parentElement !== null) {
+        if (this.directionObs === 1){
+            this.yPos -= car.acceleration*0.3;
+        }else {
+            this.yPos -= car.acceleration*1.8;
+        }
+        this.$obstacle.style.bottom = `${this.yPos}px`
+        if(this.yPos < -this.dimensions.h) {
+            
+            this.road.removeChild(this.$obstacle)
+            let removed = obstacle[this.lane].shift()
+            sequenceArr.push(removed)
+            this.yPos = 720
+            this.needMove = false
+        }
+    }
+    if(car.speed === 'off' && this.$obstacle.parentElement !== null){
+        if (this.directionObs === 1){
+            this.yPos += canvas.roadSpeed*1.8;
             this.$obstacle.style.bottom = `${this.yPos}px`
-            if(this.yPos < -this.dimensions.h) {
-                
+            if(this.yPos > 720 + this.dimensions.h) {
                 this.road.removeChild(this.$obstacle)
                 let removed = obstacle[this.lane].shift()
                 sequenceArr.push(removed)
                 this.yPos = 720
                 this.needMove = false
             }
-        } 
-    }
-    if(car.speed === 'off'){
-        if(this.$obstacle.parentElement !== null) {
-            if (this.directionObs === 1){
-                this.yPos += canvas.roadSpeed*1.8;
-                this.$obstacle.style.bottom = `${this.yPos}px`
-                if(this.yPos > 720 + this.dimensions.h) {
-                    this.road.removeChild(this.$obstacle)
-                    let removed = obstacle[this.lane].shift()
-                    sequenceArr.push(removed)
-                    this.yPos = 720
-                    this.needMove = false
-                }
-            }else {
-                this.yPos -= canvas.roadSpeed*1.8;
-                this.$obstacle.style.bottom = `${this.yPos}px`
-                if(this.yPos < -this.dimensions.h) {
-                    this.road.removeChild(this.$obstacle)
-                    let removed = obstacle[this.lane].shift()
-                    sequenceArr.push(removed)
-                    this.yPos = 720
-                    this.needMove = false
-                }
+        }else {
+            this.yPos -= canvas.roadSpeed*1.8;
+            this.$obstacle.style.bottom = `${this.yPos}px`
+            if(this.yPos < -this.dimensions.h) {
+                this.road.removeChild(this.$obstacle)
+                let removed = obstacle[this.lane].shift()
+                sequenceArr.push(removed)
+                this.yPos = 720
+                this.needMove = false
             }
-        } 
+        }
     }
 }

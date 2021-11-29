@@ -15,15 +15,23 @@ var sequenceArr = [
 var obstacle = [[],[],[],[]]
 var counter = 7775 //Distancia del primer viaje en px.
 var interval10;
+var interval300;
 
 function TaxiDriverGame() {
     this.start = function(){
-        ingameTheme.play()
+        // ingameTheme.play()
+        interval100 = setInterval(function(){
+            canvas.passenger()
+        },300)
         sequenceArr.sort(() => 0.5 - Math.random())
-        game.direction()
+        setTimeout(game.direction,4500)
         interval10 = setInterval(function() {
-            canvas.init()
-            canvas.stopwatch()
+            if(canvas.ready){
+                canvas.init()
+                canvas.stopwatch()
+                game.checkCollision()
+                game.checkWinCondition()
+            }
             game.obstacleSequence()
             obstacle.forEach(function(elem) {
                 if(elem[0] !== undefined && elem[0].needDOM) {
@@ -35,8 +43,6 @@ function TaxiDriverGame() {
                     elem[0].movement()
                 }
             })
-            game.checkCollision()
-            game.checkWinCondition()
         },10)
     }
     this.direction = function(){
@@ -72,7 +78,7 @@ function TaxiDriverGame() {
             }
             if(event.key === 'w') {
                 car.speed = 'off'
-                drive.play()
+                // drive.play()
             }
         });
     }

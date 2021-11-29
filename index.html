@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taxi Driver Game</title>
     <link rel="stylesheet" href="style/style.css">
-    <script defer allow="autoplay" src="scr/music.js"></script>
+    <script defer src="scr/music.js"></script>
     <script defer src="scr/obstacle.js"></script>
     <script defer src="scr/car.js"></script>
     <script defer src="scr/canvas.js"></script>
     <script defer src="scr/index.js"></script>
-    <audio volume="1" id="ingame" src="/assets/sound/IngameTheme.mp3"></audio>
-    <audio src="/assets/sound/mainMenu.mp3" id="mainmenu"></audio>
-    <audio loop= "true" src="/assets/sound/driveBy.wav" id="drive"></audio>
+    <audio id="ingame" src="/assets/sound/IngameTheme.mp3"></audio>
+    <audio id="mainmenu" src="/assets/sound/mainMenu.mp3"></audio>
+    <audio id="drive" src="/assets/sound/driveBy.wav"></audio>
 </head>
 <body>
     <div id="canvas">
@@ -46,6 +46,7 @@
         <div id="road">
             <div id="car"></div>
         </div>
+        <div id="passengercall"></div>
         <div id="HUD">
             <div id="destination">
                 <span id="distance"></span>

@@ -1,5 +1,5 @@
 function Car() {
-    this.position = { x: 365, y: 70 }
+    this.position = { x: 385, y: 70 }
     this.dimensions = { w: 50, h: 70 }
     this.lateralQuick = 0.44
     this.speed = 'off'

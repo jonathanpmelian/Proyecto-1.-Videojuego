@@ -1,13 +1,16 @@
 function Canvas() {
     this.$canvas = document.getElementById('canvas')
-    this.roadSpeed = 2.8 //Relación de velocidad para todos los tipos de obstáculo.
+    this.roadSpeed = 2.8 //Relación de velocidad de el juego.
     this.backgroundPosY = 0
+    this.$boy = document.getElementById('passengercall')
+    this.boyposX = 1105
+    this.ready = false
     this.init = function() {
         if(car.acceleration < this.roadSpeed && car.speed === 'on'){ 
             car.acceleration += 0.14
             this.backgroundPosY += car.acceleration
         } else if (car.acceleration >= 2.8 && car.speed === 'on'){
-            this.backgroundPosY += car.acceleration //accelerator
+            this.backgroundPosY += car.acceleration 
         }
         this.$canvas.style.backgroundPositionY = `${this.backgroundPosY}px`;
     }
@@ -38,5 +41,20 @@ function Canvas() {
         milisecond < 10 ? `0${milisecond.toString()}`:`${milisecond.toString()}`
         $second.innerText = second < 10 ? `0${second.toString()}`:`${second.toString()}`
         $minute.innerText = minute < 10 ? `0${minute.toString()}`:`${minute.toString()}`
+    }
+    this.passenger = function() {
+        this.$boy.style.display = 'block'
+        console.log(canvas.boyposX)
+        if(canvas.boyposX <= 1105) {
+            this.$boy.id = 'passenger'
+        }
+        if(canvas.boyposX > 980) {
+            canvas.boyposX -= 10
+            this.$boy.style.left = `${canvas.boyposX}px`
+        } else {
+            this.$boy.style.display = 'none'
+            clearInterval(interval300)
+            this.ready = true
+        }
     }
 }
