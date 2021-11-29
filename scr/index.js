@@ -1,3 +1,4 @@
+//En .checkWinCondition la relación px/m es 15.55 en base a que un coche común tiene un largo de 4.5m que equivale a 70px en el juego.
 var canvas = new Canvas()
 var car = new Car()
 var sequenceArr = [
@@ -12,11 +13,13 @@ var sequenceArr = [
     new Obstacle(80,80,'obstacle')
 ]
 var obstacle = [[],[],[],[]]
-var counter = 7775
+var counter = 7775 //Distancia del primer viaje en px.
 var interval10;
 
 function TaxiDriverGame() {
     this.start = function(){
+        ingameTheme.play()
+        sequenceArr.sort(() => 0.5 - Math.random())
         game.direction()
         interval10 = setInterval(function() {
             canvas.init()
@@ -37,32 +40,39 @@ function TaxiDriverGame() {
         },10)
     }
     this.direction = function(){
-        let timerDelay;
+        let timerInertiaDelay;
         document.addEventListener('keydown', function(event){
             if(car.position.x <= 1 || car.position.x >= 388) {
-                clearInterval(timerDelay)
-                car.speed = 0;
+                clearInterval(timerInertiaDelay)
+                car.lateralQuick = 0;
             }
             if(event.key === 'a' && car.position.x > 1){
                 // car.direction = -1
                 car.moveLeft()
-                setTimeout(clearInterval,400,timerDelay)
+                setTimeout(clearInterval,400,timerInertiaDelay)
             } else if(event.key === 'd' && car.position.x < 388) {
                 car.moveRight()
-                setTimeout(clearInterval,400,timerDelay)
+                setTimeout(clearInterval,400,timerInertiaDelay)
+            }
+            if(event.key === 'w') {
+                car.speed = 'on'
             }
         });
         document.addEventListener('keyup', function(event){
             if(car.position.x <= 1 || car.position.x >= 388) { 
-                clearInterval(timerDelay) 
-                car.speed = 0;
+                clearInterval(timerInertiaDelay) 
+                car.lateralQuick = 0;
             }
             if(event.key === 'a' && car.position.x > 1){
-                timerDelay = setInterval(car.inertiaLeft.bind(car),20)
-                setTimeout(clearInterval,500,timerDelay)
+                timerInertiaDelay = setInterval(car.inertiaLeft.bind(car),20)
+                setTimeout(clearInterval,500,timerInertiaDelay)
             } else if(event.key === 'd' && car.position.x < 388) {
-                timerDelay = setInterval(car.inertiaRight.bind(car),20)
-                setTimeout(clearInterval,500,timerDelay)
+                timerInertiaDelay = setInterval(car.inertiaRight.bind(car),20)
+                setTimeout(clearInterval,500,timerInertiaDelay)
+            }
+            if(event.key === 'w') {
+                car.speed = 'off'
+                drive.play()
             }
         });
     }
@@ -85,7 +95,7 @@ function TaxiDriverGame() {
             obstacle[2].push(pickLane2)
             pickLane2.needDOM = true
         }
-        if(obstacle[3].length === 0 && Math.random() < 0.1) {
+        if(obstacle[3].length === 0 && Math.random() < 0.1 && car.speed === 'on') {
             let pickLane3 = sequenceArr.shift()
             pickLane3.lane = 3
             obstacle[3].push(pickLane3)
@@ -100,7 +110,7 @@ function TaxiDriverGame() {
                 (car.position.x + car.dimensions.w) > obstacle[i][j].posIntoLane &&
                 (car.position.y + car.dimensions.h) > obstacle[i][j].yPos
                 ) {
-                    game.gameOver()
+                    game.gameOver()//Esto debería activar un interruptor, no la función.
                 }
             } 
         }  
@@ -108,7 +118,7 @@ function TaxiDriverGame() {
     this.gameOver = function() {
         clearInterval(interval10)
         let opacity = 0
-        setInterval(function(){
+        setInterval(function(){//Esto hay que meterlo en game.start.
             this.$gameover = document.getElementById('gameOver')
             opacity += 50
             this.$gameover.style.opacity = `${opacity}%`
@@ -116,9 +126,10 @@ function TaxiDriverGame() {
     }
     this.checkWinCondition = function() {
         let $distance = document.getElementById('distance')
+        $distance.innerText = `Destination: ${Math.round(counter/15.55)} m`
         if(counter < 0){
             alert('You Win!')
-        } else {
+        } else if(car.speed === 'on'){
             counter--
             $distance.innerText = `Destination: ${Math.round(counter/15.55)} m`
         }

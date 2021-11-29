@@ -1,13 +1,13 @@
 function Canvas() {
     this.$canvas = document.getElementById('canvas')
-    this.roadSpeed = 2.8
+    this.roadSpeed = 2.8 //Relación de velocidad para todos los tipos de obstáculo.
     this.backgroundPosY = 0
     this.init = function() {
-        if(this.roadSpeed < 2){ 
-            this.backgroundPosY += this.roadSpeed 
-            this.roadSpeed += 0.004
-        } else {
-            this.backgroundPosY += this.roadSpeed
+        if(car.acceleration < this.roadSpeed && car.speed === 'on'){ 
+            car.acceleration += 0.14
+            this.backgroundPosY += car.acceleration
+        } else if (car.acceleration >= 2.8 && car.speed === 'on'){
+            this.backgroundPosY += car.acceleration //accelerator
         }
         this.$canvas.style.backgroundPositionY = `${this.backgroundPosY}px`;
     }
