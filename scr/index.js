@@ -18,9 +18,10 @@ var interval10;
 var interval300;
 
 function TaxiDriverGame() {
+    this.level = 1
     this.start = function(){
         // ingameTheme.play()
-        interval100 = setInterval(function(){
+        interval300 = setInterval(function(){
             canvas.passenger()
         },300)
         sequenceArr.sort(() => 0.5 - Math.random())
@@ -132,9 +133,12 @@ function TaxiDriverGame() {
     }
     this.checkWinCondition = function() {
         let $distance = document.getElementById('distance')
+        let $level = document.getElementById('level')
+        $level.innerText = `Level: ${this.level}`
         $distance.innerText = `Destination: ${Math.round(counter/15.55)} m`
-        if(counter < 0){
+        if(counter < 0){ 
             alert('You Win!')
+            game.level++//¿5 niveles para pasarse el juego?
         } else if(car.speed === 'on'){
             counter--
             $distance.innerText = `Destination: ${Math.round(counter/15.55)} m`
