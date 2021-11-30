@@ -13,14 +13,13 @@ var obstacleBox = [
     new Obstacle(80,80,'obstacle')
 ]
 var roadLanes = [[],[],[],[]]
-var initialDistance = 1943.75*2.7 //Distancia del primer viaje en px.
+var initialDistance = 3112 //Distancia del primer viaje en px.
 var distance = initialDistance;
 var mainInterval;
 var passengerInterval;
 var percentage = 0.01;
-var startCheck = false;
+var finishLineYPos = 720;
 var startBtn = document.getElementById('startBtn')
-
 
 //Game Function
 function TaxiDriverGame() {
@@ -173,15 +172,22 @@ function TaxiDriverGame() {
         let $distance = document.getElementById('distance')
         let $level = document.getElementById('level')
         $level.innerText = `Level: ${this.level}`
-        $distance.innerText = `Destination: ${Math.round(distance/15.55)} m`
+        $distance.innerText = `Destination: ${Math.round(distance*0.065)} m`
+        let $finishLine = document.getElementById('finishline')
         if(distance < 0){ 
             clearInterval(mainInterval)
             game.level++
             initialDistance*2
             //Tenemos que sumar 20s al crono, si los segundos son 60, segundos = 0 y minutos +1
         } else if(car.speed === 'on'){
-            distance--
-            $distance.innerText = `Destination: ${Math.round(distance/15.55)} m`
+            distance-= car.maxSpeed
+            $distance.innerText = `Destination: ${Math.round(distance*0.065)} m`
+        }
+        if (distance <= 670 && car.speed === 'on') {
+            console.log('disntace',distance)
+            console.log(finishLineYPos)
+            finishLineYPos -= car.maxSpeed
+            $finishLine.style.bottom = `${finishLineYPos}px`
         }
     }
 }

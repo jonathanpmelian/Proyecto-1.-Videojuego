@@ -185,6 +185,17 @@ body,html {
     background-size: cover;
     /* background-color: salmon; */
 }
+#finishline {
+    position: absolute;
+    display: block;
+    width: 430px;
+    height: 50px;
+    bottom: 720px;
+    margin: auto auto;
+    background-image: url(../assets/img/finishLine.gif);
+    background-size: cover;
+    /* background-color: aquamarine; */
+}
 /*OBSTACLES*/
 .policeCar {
     position: absolute;
