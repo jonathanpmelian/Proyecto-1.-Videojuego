@@ -100,6 +100,9 @@ body,html {
     line-height: 40px;
     background-color: hsla(100, 0, 55, 0.5);
 }
+
+
+
 #startScreen p{
     text-align: center;
     color: white;
@@ -112,7 +115,12 @@ body,html {
 }
 #startBtn{
     width: 150px;
-    border-radius: 15%;
+    border-radius: 20%;
+    background-color: rgba(1,26,35,0.85);
+    font-size: 20px;
+    font-weight: bold;
+    color: hsla(178, 49%, 38%, 1);
+    border: 5px ridge  hsla(178, 49%, 38%, 1);
 }
 #passenger {
     position: absolute;

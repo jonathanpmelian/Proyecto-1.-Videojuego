@@ -44,7 +44,7 @@ function TaxiDriverGame() {
             }
             //Mandamos obstáculos a los carriles
             game.obstacleSequence()
-            //Creaomos el obstáculo en el DOM
+            //Creamos el obstáculo en el DOM
             roadLanes.forEach(function(elem) {
                 if(elem[0] !== undefined && elem[0].needDOM) {
                     elem[0].createDOM()

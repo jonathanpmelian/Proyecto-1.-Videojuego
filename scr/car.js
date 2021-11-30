@@ -24,7 +24,7 @@ function Car() {
             this.lateralSpeed < this.maxSpeed ) {
 
             if( this.direction !== 0 ) {
-                this.lateralSpeed += 0.05
+                this.lateralSpeed += 0.1
                 this.position.x += this.direction*this.lateralSpeed
                 this.$car.style.left = `${this.position.x}px` 
             }
