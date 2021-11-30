@@ -17,7 +17,7 @@ var initialDistance = 1943.75*2.7 //Distancia del primer viaje en px.
 var distance = initialDistance;
 var mainInterval;
 var passengerInterval;
-var percentage = 0.1;
+var percentage = 0.01;
 
 //Game Function
 function TaxiDriverGame() {
@@ -33,11 +33,10 @@ function TaxiDriverGame() {
             canvas.passenger()
         },300)}
         ,1000)
-        //Se desbloquean los controles
-        setTimeout(game.unlockControls,4900)
         //Bucle principal del juego
         mainInterval = setInterval(function() {
             if(canvas.ready){
+                game.unlockControls()
                 car.move()
                 canvas.stopwatch()
                 game.checkCollision()
@@ -57,11 +56,6 @@ function TaxiDriverGame() {
                     elem[0].movement()
                 }
             })
-            if (car.direction != 0){
-                car.move()
-            }
-            console.log(car.direction, car.position.x)
-            
         },10)
     }
     this.unlockControls = function() {
@@ -103,13 +97,13 @@ function TaxiDriverGame() {
             car.position.x -= car.lateralSpeed
         }
         //Car with obstacles
-        //.x+5 y .laneRandomXPos+5 nos permiten que el coche entre 5px en el div de el obstáculo antes de colisionar (evita retrovisores).
+        //.x+5 .yPos+5 .laneRandomXPos+5 nos permiten que el coche entre 5px en el div de el obstáculo antes de colisionar (evita retrovisores).
         for(let i = 0 ; i < roadLanes.length ; i++) {
             for(let j = 0 ; j < roadLanes[i].length ; j++) {
                 if((car.position.x+5) < (roadLanes[i][j].laneRandomXPos + roadLanes[i][j].dimensions.w) &&
                 car.position.y < (roadLanes[i][j].yPos+ roadLanes[i][j].dimensions.h) &&
                 (car.position.x + car.dimensions.w) > (roadLanes[i][j].laneRandomXPos+5) &&
-                (car.position.y + car.dimensions.h) > roadLanes[i][j].yPos
+                (car.position.y + car.dimensions.h) > (roadLanes[i][j].yPos+5)
                 ) {
                     game.gameOver()
                 }
@@ -171,7 +165,3 @@ function TaxiDriverGame() {
 }
 const game = new TaxiDriverGame()
 game.start()
-
-const startBtn = document
-const resetBtn = document
-const nextLvl = document

@@ -85,7 +85,7 @@ Servicecar.prototype.movement = function() {
         }
         if(this.laneDirection === -1){
             this.yPos -= car.maxSpeed*percentage;
-            if (percentage < 0.6) {
+            if (percentage < 0.5) {
                 percentage += 0.0001
             }
             console.log(percentage)
@@ -182,7 +182,7 @@ Heavycar.prototype.movement = function() {
         }
         if(this.laneDirection === -1){
             this.yPos -= car.maxSpeed*percentage;
-            if (percentage < 0.6) {
+            if (percentage < 0.75) {
                 percentage += 0.0001
             }
             this.$obstacle.style.bottom = `${this.yPos}px`
@@ -230,7 +230,7 @@ Motorbike.prototype.movement = function() {
         }
         if(this.laneDirection === -1){
             this.yPos -= car.maxSpeed*percentage;
-            if (percentage < 0.6) {
+            if (percentage < 0.55) {
                 percentage += 0.001
             }
             this.$obstacle.style.bottom = `${this.yPos}px`
