@@ -18,21 +18,38 @@ var distance = initialDistance;
 var mainInterval;
 var passengerInterval;
 var percentage = 0.01;
+// var clickStart = false;
+// const startBtn = document.getElementById('startBtn')
+// startBtn.addEventListener('click', function(){
+//     clickStart = true
+//     mainMenu.stop()
+// })
 
 //Game Function
 function TaxiDriverGame() {
-    this.level = 1
+    const self = this
+    this.turnOn = function() {
+        let gameOn = document.getElementById('gameOn')
+        let onButton = document.getElementById('onBtn')
+        onButton.addEventListener('click', function(){
+            gameOn.style.opacity = '0%'
+            mainMenu.play()
+            self.start()
+        })
+    }
 
+    this.level = 1
     //Functions
     this.start = function(){
         //Baraja los obstaculos del array
         obstacleBox.sort(() => 0.5 - Math.random())
         //El pasajero va al taxi y activa canvas.ready
-        setTimeout(function(){
+            setTimeout(function(){
             passengerInterval = setInterval(function(){
             canvas.passenger()
         },300)}
         ,1000)
+
         //Bucle principal del juego
         mainInterval = setInterval(function() {
             if(canvas.ready){
@@ -164,4 +181,4 @@ function TaxiDriverGame() {
     }
 }
 const game = new TaxiDriverGame()
-game.start()
+game.turnOn()
