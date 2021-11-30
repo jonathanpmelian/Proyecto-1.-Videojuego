@@ -19,24 +19,44 @@ var mainInterval;
 var passengerInterval;
 var percentage = 0.01;
 var finishLineYPos = 720;
+var startBtn = document.getElementById('startBtn')
 
 //Game Function
 function TaxiDriverGame() {
-    this.level = 1
+    const self = this
+    this.turnOn = function() {
+        let gameOn = document.getElementById('gameOn')
+        let onButton = document.getElementById('onBtn')
+        onButton.addEventListener('click', function(){
+            gameOn.style.display = 'none'
+            mainMenu.play()
+            self.start()
+        })
+    }
 
+    startBtn.addEventListener('click', function(){
+        let startScreen = document.getElementById('startScreen')
+        setTimeout(function(){
+            passengerInterval = setInterval(function(){
+            canvas.passenger()
+            },300)}
+            ,1000)
+        startScreen.style.display='none'
+        mainMenu.pause()
+        ingameTheme.play()
+    })
+    this.level = 1
     //Functions
     this.start = function(){
         //Baraja los obstaculos del array
         obstacleBox.sort(() => 0.5 - Math.random())
         //El pasajero va al taxi y activa canvas.ready
-        setTimeout(function(){
-            passengerInterval = setInterval(function(){
-            canvas.passenger()
-        },300)}
-        ,1000)
+        
+            
+
         //Bucle principal del juego
         mainInterval = setInterval(function() {
-            if(canvas.ready){
+            if(canvas.ready /*&& startCheck === true*/){
                 game.unlockControls()
                 car.move()
                 canvas.stopwatch()
@@ -45,7 +65,7 @@ function TaxiDriverGame() {
             }
             //Mandamos obstáculos a los carriles
             game.obstacleSequence()
-            //Creaomos el obstáculo en el DOM
+            //Creamos el obstáculo en el DOM
             roadLanes.forEach(function(elem) {
                 if(elem[0] !== undefined && elem[0].needDOM) {
                     elem[0].createDOM()
@@ -172,4 +192,4 @@ function TaxiDriverGame() {
     }
 }
 const game = new TaxiDriverGame()
-game.start()
+game.turnOn()
