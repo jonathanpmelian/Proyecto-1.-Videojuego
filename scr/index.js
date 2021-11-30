@@ -21,67 +21,82 @@ function TaxiDriverGame() {
     this.level = 1
     this.start = function(){
         // ingameTheme.play()
-        interval300 = setInterval(function(){
-            canvas.passenger()
-        },300)
+        // interval300 = setInterval(function(){
+        //     canvas.passenger()
+        // },300)
         sequenceArr.sort(() => 0.5 - Math.random())
-        setTimeout(game.direction,4500)
+        // setTimeout(game.unlockControls,4500)
+        game.unlockControls()
         interval10 = setInterval(function() {
-            if(canvas.ready){
-                canvas.init()
+            // if(canvas.ready){
+                // canvas.init()
+                car.move()
                 canvas.stopwatch()
                 game.checkCollision()
                 game.checkWinCondition()
-            }
-            game.obstacleSequence()
-            obstacle.forEach(function(elem) {
-                if(elem[0] !== undefined && elem[0].needDOM) {
-                    elem[0].createDOMobstacle()
-                }
-            })
-            obstacle.forEach(function(elem) {
-                if(elem[0] !== undefined && elem[0].needMove) {
-                    elem[0].movement()
-                }
-            })
+            // }
+            // game.obstacleSequence()
+            // obstacle.forEach(function(elem) {
+            //     if(elem[0] !== undefined && elem[0].needDOM) {
+            //         elem[0].createDOMobstacle()
+            //     }
+            // })
+            // obstacle.forEach(function(elem) {
+            //     if(elem[0] !== undefined && elem[0].needMove) {
+            //         elem[0].movement()
+            //     }
+            // })
         },10)
     }
-    this.direction = function(){
-        let timerInertiaDelay;
-        document.addEventListener('keydown', function(event){
-            if(car.position.x <= 1 || car.position.x >= 388) {
-                clearInterval(timerInertiaDelay)
-                car.lateralQuick = 0;
+    this.unlockControls = function() {
+        document.addEventListener('keydown',function(event) {
+            if( event.key === 'a' && !car.blockDirection) {
+                car.direction = -1
             }
-            if(event.key === 'a' && car.position.x > 1){
-                // car.direction = -1
-                car.moveLeft()
-                setTimeout(clearInterval,400,timerInertiaDelay)
-            } else if(event.key === 'd' && car.position.x < 388) {
-                car.moveRight()
-                setTimeout(clearInterval,400,timerInertiaDelay)
+            if( event.key === 'd' && !car.blockDirection) {
+                car.direction = 1
             }
-            if(event.key === 'w') {
+            if( event.key === 'w') {
                 car.speed = 'on'
             }
-        });
-        document.addEventListener('keyup', function(event){
-            if(car.position.x <= 1 || car.position.x >= 388) { 
-                clearInterval(timerInertiaDelay) 
-                car.lateralQuick = 0;
+        })
+        document.addEventListener('keyup', function(event) {
+            if( event.key === 'a' ) {
+                car.direction = 0
+                car.lateralSpeed = 0
             }
-            if(event.key === 'a' && car.position.x > 1){
-                timerInertiaDelay = setInterval(car.inertiaLeft.bind(car),20)
-                setTimeout(clearInterval,500,timerInertiaDelay)
-            } else if(event.key === 'd' && car.position.x < 388) {
-                timerInertiaDelay = setInterval(car.inertiaRight.bind(car),20)
-                setTimeout(clearInterval,500,timerInertiaDelay)
+            if( event.key === 'd' ) {
+                car.direction = 0
+                car.lateralSpeed = 0
             }
-            if(event.key === 'w') {
+            if( event.key === 'w') {
                 car.speed = 'off'
-                // drive.play()
             }
-        });
+        })
+    }
+    this.checkCollision = function() {
+        //Car with road limits
+        if( car.position.x <= 1 ) {
+            car.direction = 0
+            car.position.x += car.lateralSpeed
+        }
+        if( car.position.x >= 388 ) {
+            car.direction = 0
+            car.position.x -= car.lateralSpeed
+        }
+        //Car with obstacles
+        //Los .x+5 o .posIntoLane+5 nos permiten que el coche entre 5px en el div de el obstáculo antes de colisionar (evita retrovisores).
+        for(let i = 0 ; i < obstacle.length ; i++) {
+            for(let j = 0 ; j < obstacle[i].length ; j++) {
+                if((car.position.x+5) < (obstacle[i][j].posIntoLane + obstacle[i][j].dimensions.w) &&
+                car.position.y < (obstacle[i][j].yPos+ obstacle[i][j].dimensions.h) &&
+                (car.position.x + car.dimensions.w) > (obstacle[i][j].posIntoLane+5) &&
+                (car.position.y + car.dimensions.h) > obstacle[i][j].yPos
+                ) {
+                    game.gameOver()
+                }
+            } 
+        }  
     }
     this.obstacleSequence = function() {
         if(obstacle[0].length === 0 && Math.random() < 0.1) {
@@ -108,19 +123,6 @@ function TaxiDriverGame() {
             obstacle[3].push(pickLane3)
             pickLane3.needDOM = true
         }
-    }
-    this.checkCollision = function() {
-        for(let i = 0 ; i < obstacle.length ; i++) {
-            for(let j = 0 ; j < obstacle[i].length ; j++) {
-                if(car.position.x < (obstacle[i][j].posIntoLane + obstacle[i][j].dimensions.w) &&
-                car.position.y < (obstacle[i][j].yPos+ obstacle[i][j].dimensions.h) &&
-                (car.position.x + car.dimensions.w) > obstacle[i][j].posIntoLane &&
-                (car.position.y + car.dimensions.h) > obstacle[i][j].yPos
-                ) {
-                    game.gameOver()//Esto debería activar un interruptor, no la función.
-                }
-            } 
-        }  
     }
     this.gameOver = function() {
         clearInterval(interval10)

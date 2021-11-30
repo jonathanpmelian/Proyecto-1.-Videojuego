@@ -1,19 +1,8 @@
 function Canvas() {
     this.$canvas = document.getElementById('canvas')
-    this.roadSpeed = 2.8 //Relación de velocidad de el juego.
-    this.backgroundPosY = 0
     this.$boy = document.getElementById('passengercall')
     this.boyposX = 1105
     this.ready = false
-    this.init = function() {
-        if(car.acceleration < this.roadSpeed && car.speed === 'on'){ 
-            car.acceleration += 0.14
-            this.backgroundPosY += car.acceleration
-        } else if (car.acceleration >= 2.8 && car.speed === 'on'){
-            this.backgroundPosY += car.acceleration 
-        }
-        this.$canvas.style.backgroundPositionY = `${this.backgroundPosY}px`;
-    }
     this.stopwatch = function(){
         let $stopwatch = document.getElementById('stopwatch')
         let $minute = document.getElementById('minute')
@@ -44,7 +33,6 @@ function Canvas() {
     }
     this.passenger = function() {
         this.$boy.style.display = 'block'
-        console.log(canvas.boyposX)
         if(canvas.boyposX <= 1105) {
             this.$boy.id = 'passenger'
         }
