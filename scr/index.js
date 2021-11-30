@@ -57,6 +57,11 @@ function TaxiDriverGame() {
                     elem[0].movement()
                 }
             })
+            if (car.direction != 0){
+                car.move()
+            }
+            console.log(car.direction, car.position.x)
+            
         },10)
     }
     this.unlockControls = function() {
@@ -166,3 +171,7 @@ function TaxiDriverGame() {
 }
 const game = new TaxiDriverGame()
 game.start()
+
+const startBtn = document
+const resetBtn = document
+const nextLvl = document
