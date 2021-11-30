@@ -18,12 +18,9 @@ var distance = initialDistance;
 var mainInterval;
 var passengerInterval;
 var percentage = 0.01;
-// var clickStart = false;
-// const startBtn = document.getElementById('startBtn')
-// startBtn.addEventListener('click', function(){
-//     clickStart = true
-//     mainMenu.stop()
-// })
+var startCheck = false;
+var startBtn = document.getElementById('startBtn')
+
 
 //Game Function
 function TaxiDriverGame() {
@@ -32,27 +29,35 @@ function TaxiDriverGame() {
         let gameOn = document.getElementById('gameOn')
         let onButton = document.getElementById('onBtn')
         onButton.addEventListener('click', function(){
-            gameOn.style.opacity = '0%'
+            gameOn.style.display = 'none'
             mainMenu.play()
             self.start()
         })
     }
 
+    startBtn.addEventListener('click', function(){
+        let startScreen = document.getElementById('startScreen')
+        setTimeout(function(){
+            passengerInterval = setInterval(function(){
+            canvas.passenger()
+            },300)}
+            ,1000)
+        startScreen.style.display='none'
+        mainMenu.pause()
+        ingameTheme.play()
+    })
     this.level = 1
     //Functions
     this.start = function(){
         //Baraja los obstaculos del array
         obstacleBox.sort(() => 0.5 - Math.random())
         //El pasajero va al taxi y activa canvas.ready
-            setTimeout(function(){
-            passengerInterval = setInterval(function(){
-            canvas.passenger()
-        },300)}
-        ,1000)
+        
+            
 
         //Bucle principal del juego
         mainInterval = setInterval(function() {
-            if(canvas.ready){
+            if(canvas.ready /*&& startCheck === true*/){
                 game.unlockControls()
                 car.move()
                 canvas.stopwatch()
