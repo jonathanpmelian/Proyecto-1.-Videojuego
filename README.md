@@ -34,7 +34,7 @@ jonathanpmelian@gmail.com
 ## Contribution
 Contributions, issues, and feature requests are welcome!
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://github.com/jonathanpmelian/RebootDriver/blob/main/LICENSE)
 ## Support
 Give a ⭐️ if you like this project!
 
