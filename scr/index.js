@@ -1,29 +1,64 @@
-//Global Declarations
+//MUSIC
+const ingameTheme = new Audio('./assets/sound/ingameTheme.mp3')
+ingameTheme.volume = 0.25
+ingameTheme.loop = true
+const driveBy = new Audio('./assets/sound/driveBy.wav')
+driveBy.volume = 0.1
+driveBy.loop = true
+const mainMenu = new Audio('./assets/sound/mainMenu.mp3')
+mainMenu.volume = 0.1
+mainMenu.loop = true
+const gameOver = new Audio('./assets/sound/gameOver.mp3')
+gameOver.volume = 0.1
+gameOver.loop = true
+//GLOBAL DECLARATION
 var canvas = new Canvas()
 var car = new Car()
-var obstacleBox = [
-    new Servicecar(50,70,'policeCar'),
-    new Motorbike(35,50,'motorbike'),
-    new Heavycar(80,250,'truck'),
-    new Normalcar(50,70,'normalCar1'),
-    new Normalcar(50,70,'normalCar2'),
-    new Normalcar(50,70,'normalCar3'),
-    new Normalcar(50,70,'normalCar4'),
-    new Heavycar(70,100,'caravana'),
-    new Obstacle(80,80,'obstacle')
-]
-var roadLanes = [[],[],[],[]]
-var initialDistance = 3112 //Distancia del primer viaje en px.
-var distance = initialDistance;
+var obstacleBox;
+var $stopwatch;
+var $minute;
+var minute;
+var $second;
+var second;
+var $milisecond;
+var milisecond;
+var gameStatus;
+var $distance;
+var $level;
+var $finishLine;
+var roadLanes;
+var initialDistance;
+var distance;
 var mainInterval;
 var passengerInterval;
-var percentage = 0.01;
-var finishLineYPos = 720;
-var startBtn = document.getElementById('startBtn')
-
-//Game Function
+var percentage;
+var finishLineYPos;
+var startScreen;
+//GAME FUNCTION
 function TaxiDriverGame() {
+    //VALUES
     const self = this
+    this.level = 1
+    minute = 0
+    second = 15
+    milisecond = 0
+    //HUD
+    $distance = document.getElementById('distance')
+    $level = document.getElementById('level')
+    $level.innerText = `Level: ${this.level}`
+    initialDistance = 3112 //Distancia del primer viaje en px.
+    distance = initialDistance
+    $distance.innerText = `Destination: ${Math.round(distance*0.065)} m`
+    $finishLine = document.getElementById('finishline')
+    $stopwatch = document.getElementById('stopwatch')
+    $minute = document.getElementById('minute')
+    $second = document.getElementById('second')
+    $milisecond = document.getElementById('milisecond');
+    $milisecond.innerText = milisecond < 1 ? `00`:
+    milisecond < 10 ? `0${milisecond}`:`${milisecond}`
+    $second.innerText = second < 10 ? `0${second}`:`${second}`
+    $minute.innerText = minute < 10 ? `0${minute}`:`${minute}`
+    //BUTTONS
     this.turnOn = function() {
         let gameOn = document.getElementById('gameOn')
         let onButton = document.getElementById('onBtn')
@@ -33,30 +68,123 @@ function TaxiDriverGame() {
             self.start()
         })
     }
-
-    startBtn.addEventListener('click', function(){
-        let startScreen = document.getElementById('startScreen')
+    startBtn.addEventListener('click', function() {
+        startScreen = document.getElementById('startScreen')
+        let startBtn = document.getElementById('startBtn')
+        //El pasajero va al taxi y activa canvas.ready
+        canvas.$passenger.style.display = 'block'
         setTimeout(function(){
             passengerInterval = setInterval(function(){
             canvas.passenger()
             },300)}
-            ,1000)
+        ,1000)
         startScreen.style.display='none'
+        //MUSIC
         mainMenu.pause()
+        mainMenu.currentTime = 0
         ingameTheme.play()
+        driveBy.play()
     })
-    this.level = 1
-    //Functions
+    nextLvlBtn.addEventListener('click', function() {
+        let nextLvlBtn = document.getElementById('nextLvlBtn')
+        car.position.x = 385
+        car.$car.style.left = `${car.position.x}px`
+        car.$car.style.display = 'block'
+        canvas.$passenger.style.display = 'block'
+        game.start()
+        setTimeout(function(){
+            passengerInterval = setInterval(function(){
+            canvas.passenger()
+            },300)}
+        ,1000)
+        game.$winScreen.style.display = 'none'
+        //MUSIC
+        ingameTheme.play()
+        driveBy.play()
+    })
+    restartBtn.addEventListener('click', function() {
+        let restartBtn = document.getElementById('restartBtn')
+        car.position.x = 385
+        car.$car.style.left = `${car.position.x}px`
+        car.$car.style.display = 'block'
+        canvas.$passenger.style.display = 'block'
+        distance = initialDistance*self.level
+        $distance.innerText = `Destination: ${Math.round(distance*0.065)} m`
+        //HUD STOPWATCH
+        if (self.level === 4) {
+            second = 0
+            milisecond = 0
+            minute = 1
+        }else if (second*self.level/60 < 1) {
+            second = 15*self.level
+            minute = 0
+            milisecond = 0
+        }  else if (self.level > 4) {
+            milisecond = 0
+            second = 15*self.level%60
+            minute = Math.floor(15*self.level/60)
+        }
+        game.start()
+        setTimeout(function(){
+            passengerInterval = setInterval(function() {
+            canvas.passenger()
+            },300)
+        },1000)
+        game.$gameover.style.display ='none'
+        //MUSIC
+        ingameTheme.play()
+        driveBy.play()
+        gameOver.pause()
+        gameOver.currentTime = 0
+    })
+    quitBtn.addEventListener('click', function() {
+        let quitBtn = document.getElementById('quitBtn')
+        let restartBtn = document.getElementById('restartBtn')
+        car.position.x = 385
+        car.$car.style.left = `${car.position.x}px`
+        car.$car.style.display = 'block'
+        self.level = 1
+        $level.innerText = `Level: ${self.level}`
+        distance = initialDistance
+        $distance.innerText = `Destination: ${Math.round(distance*0.065)} m`
+        minute = 0
+        second = 15
+        milisecond = 0
+        game.start()
+        game.$gameover.style.display ='none'
+        startScreen.style.display = 'inline-block'
+        //MUSIC
+        mainMenu.play()
+        gameOver.pause()
+        gameOver.currentTime = 0
+    })
+    //FUNCTIONS
     this.start = function(){
+        gameStatus = 'start'
+        obstacleBox = [
+            new Servicecar(50,70,'policeCar'),
+            new Motorbike(35,50,'motorbike'),
+            new Heavycar(80,250,'truck'),
+            new Normalcar(50,70,'normalCar1'),
+            new Normalcar(50,70,'normalCar2'),
+            new Normalcar(50,70,'normalCar3'),
+            new Normalcar(50,70,'normalCar4'),
+            new Heavycar(70,100,'caravana'),
+            new Obstacle(80,80,'obstacle')
+        ]
+        roadLanes = [[],[],[],[]]
+        finishLineYPos = 720;
+        $finishLine.style.bottom = `${finishLineYPos}px`
+        $stopwatch.style.color = 'white'
+        $milisecond.innerText = milisecond < 1 ? `00`:
+        milisecond < 10 ? `0${milisecond}`:`${milisecond}`
+        $second.innerText = second < 10 ? `0${second}`:`${second}`
+        $minute.innerText = minute < 10 ? `0${minute}`:`${minute}`
         //Baraja los obstaculos del array
         obstacleBox.sort(() => 0.5 - Math.random())
-        //El pasajero va al taxi y activa canvas.ready
-        
-            
-
         //Bucle principal del juego
         mainInterval = setInterval(function() {
-            if(canvas.ready /*&& startCheck === true*/){
+            if(canvas.ready) {
                 game.unlockControls()
                 car.move()
                 canvas.stopwatch()
@@ -77,12 +205,13 @@ function TaxiDriverGame() {
                     elem[0].movement()
                 }
             })
+            console.log(percentage)
         },10)
     }
     this.unlockControls = function() {
         //Si el coche no está en movimiento no podemos girar
-        document.addEventListener('keydown',function(event) {
-            if( event.key === 'w' ) {
+        window.addEventListener('keydown',function(event) {
+            if( event.key === 'w' && canvas.ready === true) {
                 car.speed = 'on'
             }
             if( event.key === 'a' && car.speed === 'on' ) {
@@ -92,7 +221,7 @@ function TaxiDriverGame() {
                 car.direction = 1
             }
         })
-        document.addEventListener('keyup', function(event) {
+        window.addEventListener('keyup', function(event) {
             if( event.key === 'w' ) {
                 car.speed = 'off'
             }
@@ -151,7 +280,7 @@ function TaxiDriverGame() {
             roadLanes[2].push(obstacle3)
             obstacle3.needDOM = true
         }
-        if(roadLanes[3].length === 0 && car.speed === 'on') {
+        if(roadLanes[3].length === 0 && car.speed === 'on' || gameStatus === 'done') {
             let obstacle4 = obstacleBox.shift()
             obstacle4.lane = 3
             roadLanes[3].push(obstacle4)
@@ -159,33 +288,77 @@ function TaxiDriverGame() {
         }
     }
     this.gameOver = function() {
+        //SCREEN
+        this.$gameover = document.getElementById('gameOver')
+        this.$gameover.style.display = 'inline-block'
+        //REMOVE DOM OBTACLE
+        gameStatus = 'done'
+        //CAR
+        car.speed = 'off'
+        car.direction = 0
+        car.lateralSpeed = 0
+        car.acceleration = 0
+        percentage = 0.01
+        canvas.$canvas.style.backgroundPositionY =`${car.acceleration}px`
+        //BUCLE PRINCIPLA DEL JUEGO
+        canvas.ready = false
         clearInterval(mainInterval)
-        distance = initialDistance
-        let opacity = 0
-        setInterval(function(){
-            this.$gameover = document.getElementById('gameOver')
-            opacity += 50
-            this.$gameover.style.opacity = `${opacity}%`
-        },100)
+        car.$car.style.display = 'none' 
+        //MUSIC
+        gameOver.play()
+        ingameTheme.pause()
+        driveBy.pause()
+        ingameTheme.currentTime = 0
+        driveBy.currentTime = 0
     }
     this.checkWinCondition = function() {
-        let $distance = document.getElementById('distance')
-        let $level = document.getElementById('level')
-        $level.innerText = `Level: ${this.level}`
-        $distance.innerText = `Destination: ${Math.round(distance*0.065)} m`
-        let $finishLine = document.getElementById('finishline')
         if(distance < 0){ 
+            //SCREEN
+            this.$winScreen = document.getElementById('youWin')
+            this.$winScreen.style.display = 'inline-block'
+            //REMOVE DOM OBSTACLE
+            gameStatus = 'done'
+            //CAR
+            car.speed = 'off'
+            car.direction = 0
+            car.lateralSpeed = 0
+            car.acceleration = 0
+            percentage = 0.01
+            canvas.$canvas.style.backgroundPositionY =`${car.acceleration}px`
+            //HUD LEVEL
+            this.level++
+            $level.innerText = `Level: ${this.level}`
+            //HUD DISTANCE
+            distance = initialDistance*this.level
+            $distance.innerText = `Destination: ${Math.round(distance*0.065)} m`
+            //HUD STOPWATCH
+            if (self.level === 4) {
+                second = 0
+                milisecond = 0
+                minute = 1
+            }else if (second*self.level/60 < 1) {
+                second = 15*self.level
+                minute = 0
+                milisecond = 0
+            }  else if (self.level > 4) {
+                milisecond = 0
+                second = 15*self.level%60
+                minute = Math.floor(15*self.level/60)
+            }
+            //BUCLE PRINCIPAL DEL JUEGO
+            canvas.ready = false
             clearInterval(mainInterval)
-            game.level++
-            initialDistance*2
-            //Tenemos que sumar 20s al crono, si los segundos son 60, segundos = 0 y minutos +1
+            car.$car.style.display = 'none'
+            //MUSIC
+            ingameTheme.pause()
+            ingameTheme.currentTime = 0
+            driveBy.pause()
+            driveBy.currentTime = 0
         } else if(car.speed === 'on'){
-            distance-= car.maxSpeed
+            distance -= car.maxSpeed
             $distance.innerText = `Destination: ${Math.round(distance*0.065)} m`
         }
         if (distance <= 670 && car.speed === 'on') {
-            console.log('disntace',distance)
-            console.log(finishLineYPos)
             finishLineYPos -= car.maxSpeed
             $finishLine.style.bottom = `${finishLineYPos}px`
         }
