@@ -22,42 +22,21 @@ body,html {
     border-radius: 10px;
     object-fit: contain;
 }
-#HUD {
-    position: absolute;
-    display: flex;
-    justify-content: space-between;
-    background-color: rgba(1,26,35,0.85);
-    right: 10px;
-    bottom: 640px;
-    font-size: 20px;
-    width: 480px;
-    color: white;
-    border: 5px ridge  hsla(178, 49%, 38%, 1);
-    border-radius: 10%;
-}
-#HUD div {
-    margin: auto auto;
-    padding: 20px;
-    
-}
 #gameOver, #youWin, #startScreen, #gameOn{
     position: absolute;
     display:inline-block;
     align-content: center;
     width: 100%;
     height: 100%;
-
     /* background-color: grey; */
 }
-
 #gameOn{
     background-color: black;
     z-index: 500;
 }
-
 #onBtn{
     position: relative;
-    background: url(../assets/img/RebootLogo.jpeg) no-repeat;
+    background: url(../assets/img/RebootLogo.jpeg);
     width: 150px;
     height: 150px;
     background-size: cover;
@@ -65,59 +44,10 @@ body,html {
     top: 40%;
     left: 45%;
 }
-
-#gameOver{
-    z-index: 100;
-    display: none;
-}
-#gameOver img {
-    position: relative;
-    /* border: 2px solid red; */
-    display: block;
-    margin: 0 auto -100px auto;
-    width: 40%;
-    top: -100px;
-    
-}
-.btnContainer{
-    /* border: 3px solid green; */
-    display: flex;
-    justify-content: center;
-    top: -100px;
-}
-#gameOver button{
-    display: block;
-    align-content: center;
-    text-align: center;
-    width: 250px;
-    border-radius: 20%;
-    background-color: rgba(1,26,35,0.85);
-    font-size: 20px;
-    font-weight: bold;
-    color: hsla(178, 49%, 38%, 1);
-    border: 5px ridge  hsla(178, 49%, 38%, 1);
-    padding: 15px;
-    margin-top: 20px;
-}
-
-#youWin{
-    /* border: 2px solid blue; */
-    z-index: 200;
-    display:none;
-}
-#youWin img{
-    position: relative;
-    /* border: 2px solid red; */
-    display: block;
-    margin: 0 auto;
-    width: 30%;
-}
-#youWin button{
-    width: 500px;
-}
 #startScreen{
     background-color:rgba(0, 0, 0, 0.5);
     z-index: 400;
+    opacity: 1;
 }
 #startScreen img{
     position: relative;
@@ -131,7 +61,6 @@ body,html {
     line-height: 40px;
     background-color: hsla(100, 0, 55, 0.5);
 }
-
 #startScreen p{
     text-align: center;
     color: white;
@@ -149,7 +78,75 @@ body,html {
     font-size: 20px;
     font-weight: bold;
     color: hsla(178, 49%, 38%, 1);
-    border: 5px ridge  hsla(178, 49%, 38%, 1);
+    border: 5px solid  hsla(178, 49%, 38%, 1);
+}
+#gameOver{
+    display: none;
+    z-index: 300;
+    background-color: rgba(1,26,35,0.65);
+    /* opacity: 100%; change when it's ready */
+}
+#gameOver img {
+    position: relative;
+    /* border: 2px solid red; */
+    display: block;
+    margin: 0 auto -100px auto;
+    width: 40%;
+    top: -100px;
+}
+.btnContainer{
+    /* border: 3px solid green; */
+    display: flex;
+    justify-content: center;
+    top: -100px;
+}
+#gameOver button{
+    align-content: center;
+    text-align: center;
+    width: 250px;
+    border-radius: 20%;
+    background-color: rgba(1,26,35,0.85);
+    font-size: 20px;
+    font-weight: bold;
+    color: hsla(178, 49%, 38%, 1);
+    border: 5px solid  hsla(178, 49%, 38%, 1);
+    padding: 15px;
+    margin-top: 20px;
+}
+#youWin{
+    /* border: 2px solid blue; */
+    z-index: 200;
+    display: none;
+    background-color: rgba(1,26,35,0.65);
+}
+#youWin img{
+    position: relative;
+    /* border: 2px solid red; */
+    display: block;
+    margin: 0 auto;
+    width: 30%;
+}
+#youWin button{
+    align-content: center;
+    text-align: center;
+    width: 250px;
+    border-radius: 20%;
+    background-color: rgba(1,26,35,0.85);
+    font-size: 20px;
+    font-weight: bold;
+    color: hsla(178, 49%, 38%, 1);
+    border: 5px solid  hsla(178, 49%, 38%, 1);
+    padding: 15px;
+    margin-top: 20px;
+}
+#passengercall {
+    display: none;
+    position: absolute;
+    width: 40px;
+    height: 80px;
+    bottom: 75px;
+    left: 1105px;
+    background-image: url(../assets/img/charactercall.gif);
 }
 #passenger {
     position: absolute;
@@ -158,13 +155,22 @@ body,html {
     bottom: 75px;
     background-image: url(../assets/img/characterleft1.gif);
 }
-#passengercall {
+#HUD {
     position: absolute;
-    width: 40px;
-    height: 80px;
-    bottom: 75px;
-    left: 1105px;
-    background-image: url(../assets/img/charactercall.gif);
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(1,26,35,0.85);
+    right: 10px;
+    bottom: 640px;
+    font-size: 20px;
+    width: 480px;
+    color: white;
+    border: 5px solid  hsla(178, 49%, 38%, 1);
+    border-radius: 10%;
+}
+#HUD div {
+    margin: auto auto;
+    padding: 20px;
 }
 /* ROAD */
 #road {

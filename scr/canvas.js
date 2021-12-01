@@ -8,14 +8,6 @@ function Canvas() {
 
     //Functions
     this.stopwatch = function(){
-        let $stopwatch = document.getElementById('stopwatch')
-        let $minute = document.getElementById('minute')
-        let minute = parseInt($minute.innerText);
-        let $second = document.getElementById('second')
-        let second = parseInt($second.innerText);
-        let $milisecond = document.getElementById('milisecond');
-        let milisecond = parseInt($milisecond.innerText)
-
         if(minute === 0 && second === 0 && milisecond < 1){
             game.gameOver()
         }else if(milisecond === 0 && second === 0){
@@ -28,16 +20,15 @@ function Canvas() {
         }
         if(minute === 0 && second < 10) {
             $stopwatch.style.color = 'red'
-        }
+        } 
         milisecond--
         $milisecond.innerText = milisecond < 1 ? `00`:
-        milisecond < 10 ? `0${milisecond.toString()}`:`${milisecond.toString()}`
-        $second.innerText = second < 10 ? `0${second.toString()}`:`${second.toString()}`
-        $minute.innerText = minute < 10 ? `0${minute.toString()}`:`${minute.toString()}`
+        milisecond < 10 ? `0${milisecond}`:`${milisecond}`
+        $second.innerText = second < 10 ? `0${second}`:`${second}`
+        $minute.innerText = minute < 10 ? `0${minute}`:`${minute}`
     }
     this.passenger = function() {
         //1105-980 es la distancia del chico a la posición del taxi
-        this.$passenger.style.display = 'block'
         if(canvas.passengerXPos <= 1105) {
             this.$passenger.id = 'passenger'
         }
@@ -48,7 +39,11 @@ function Canvas() {
             this.$passenger.style.display = 'none'
             this.$passenger.id = 'passengercall'
             clearInterval(passengerInterval) //En game.start
+            this.$passenger.id = 'passengercall'
+            this.passengerXPos = 1105
+            this.$passenger.style.left = `${canvas.passengerXPos}px`
             this.ready = true
+            
         }
     }
 }

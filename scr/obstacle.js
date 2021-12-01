@@ -65,6 +65,13 @@ Obstacle.prototype.movement = function() {
             this.needMove = false
         }
     }
+    if(gameStatus === 'done') {
+        this.road.removeChild(this.$obstacle)
+        let removed = roadLanes[this.lane].shift()
+        obstacleBox.push(removed)
+        this.yPos = 720
+        this.needMove = false
+    }
 }
 Servicecar.prototype = Object.create(Obstacle.prototype)
 Servicecar.prototype.constructor = Servicecar
@@ -122,6 +129,13 @@ Servicecar.prototype.movement = function() {
             this.needMove = false
         }
     }
+    if(gameStatus === 'done') {
+        this.road.removeChild(this.$obstacle)
+        let removed = roadLanes[this.lane].shift()
+        obstacleBox.push(removed)
+        this.yPos = 720
+        this.needMove = false
+    }
 }
 Normalcar.prototype.movement = function() {
     //laneDirection= 1(lane1,lane2) , -1(lane3,lane4)
@@ -133,7 +147,7 @@ Normalcar.prototype.movement = function() {
         }
         if(this.laneDirection === -1){
             this.yPos -= car.maxSpeed*percentage;
-            if (percentage < 0.6) {
+            if (percentage < 0.5) {
                 percentage += 0.0001
             }
             this.$obstacle.style.bottom = `${this.yPos}px`
@@ -170,6 +184,13 @@ Normalcar.prototype.movement = function() {
             this.needMove = false
         }
     }
+    if(gameStatus === 'done') {
+        this.road.removeChild(this.$obstacle)
+        let removed = roadLanes[this.lane].shift()
+        obstacleBox.push(removed)
+        this.yPos = 720
+        this.needMove = false
+    }
 }
 Heavycar.prototype.movement = function() {
     //laneDirection= 1(lane1,lane2) , -1(lane3,lane4)
@@ -181,7 +202,7 @@ Heavycar.prototype.movement = function() {
         }
         if(this.laneDirection === -1){
             this.yPos -= car.maxSpeed*percentage;
-            if (percentage < 0.75) {
+            if (percentage < 0.5) {
                 percentage += 0.0001
             }
             this.$obstacle.style.bottom = `${this.yPos}px`
@@ -218,6 +239,13 @@ Heavycar.prototype.movement = function() {
             this.needMove = false
         }
     }
+    if(gameStatus === 'done') {
+        this.road.removeChild(this.$obstacle)
+        let removed = roadLanes[this.lane].shift()
+        obstacleBox.push(removed)
+        this.yPos = 720
+        this.needMove = false
+    }
 }
 Motorbike.prototype.movement = function() {
     //laneDirection= 1(lane1,lane2) , -1(lane3,lane4)
@@ -229,7 +257,7 @@ Motorbike.prototype.movement = function() {
         }
         if(this.laneDirection === -1){
             this.yPos -= car.maxSpeed*percentage;
-            if (percentage < 0.55) {
+            if (percentage < 0.5) {
                 percentage += 0.001
             }
             this.$obstacle.style.bottom = `${this.yPos}px`
@@ -264,5 +292,12 @@ Motorbike.prototype.movement = function() {
             this.yPos = 720
             this.needMove = false
         }
+    }
+    if(gameStatus === 'done') {
+        this.road.removeChild(this.$obstacle)
+        let removed = roadLanes[this.lane].shift()
+        obstacleBox.push(removed)
+        this.yPos = 720
+        this.needMove = false
     }
 }

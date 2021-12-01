@@ -15,7 +15,7 @@ function Car() {
     this.lateralSpeed = 0   //Between 0 and this.maxSpeed
     this.acceleration = 0   //0 or this.maxSpeed
     this.direction = 0  //-1(left), 0(none), 1(right)
-
+    
     //Functions
     this.move = function() {
         //Road Left Limit = 1, Road Right Limit = 388
@@ -34,7 +34,6 @@ function Car() {
             this.position.x += this.direction*this.lateralSpeed
             this.$car.style.left = `${this.position.x}px`
         }
-
         //Acceleration
         if( this.speed === 'on' ) {
             this.acceleration += this.maxSpeed
