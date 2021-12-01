@@ -68,7 +68,7 @@ body,html {
 
 #gameOver{
     z-index: 100;
-    opacity: 100%; /*change when it's ready*/
+    display: none;
 }
 #gameOver img {
     position: relative;
@@ -77,7 +77,6 @@ body,html {
     margin: 0 auto -100px auto;
     width: 40%;
     top: -100px;
-    opacity: 0;
     
 }
 .btnContainer{
@@ -87,7 +86,7 @@ body,html {
     top: -100px;
 }
 #gameOver button{
-    display: none; /*inline-block*/
+    display: block;
     align-content: center;
     text-align: center;
     width: 250px;
@@ -103,9 +102,8 @@ body,html {
 
 #youWin{
     /* border: 2px solid blue; */
-    position: absolute;
     z-index: 200;
-    opacity: 0%; /*change when it's ready*/
+    display:none;
 }
 #youWin img{
     position: relative;
@@ -120,7 +118,6 @@ body,html {
 #startScreen{
     background-color:rgba(0, 0, 0, 0.5);
     z-index: 400;
-    opacity: 1;
 }
 #startScreen img{
     position: relative;

@@ -46,6 +46,7 @@ function Canvas() {
             this.$passenger.style.left = `${canvas.passengerXPos}px`
         } else {
             this.$passenger.style.display = 'none'
+            this.$passenger.id = 'passengercall'
             clearInterval(passengerInterval) //En game.start
             this.ready = true
         }

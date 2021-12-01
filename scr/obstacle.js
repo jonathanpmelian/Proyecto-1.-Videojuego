@@ -88,7 +88,6 @@ Servicecar.prototype.movement = function() {
             if (percentage < 0.5) {
                 percentage += 0.0001
             }
-            console.log(percentage)
             this.$obstacle.style.bottom = `${this.yPos}px`
         }
         

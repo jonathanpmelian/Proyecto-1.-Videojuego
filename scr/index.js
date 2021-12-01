@@ -12,18 +12,28 @@ var obstacleBox = [
     new Heavycar(70,100,'caravana'),
     new Obstacle(80,80,'obstacle')
 ]
-var roadLanes = [[],[],[],[]]
+var roadLanes = []
 var initialDistance = 3112 //Distancia del primer viaje en px.
 var distance = initialDistance;
 var mainInterval;
 var passengerInterval;
 var percentage = 0.01;
 var finishLineYPos = 720;
+var startScreen = document.getElementById('startScreen')
 var startBtn = document.getElementById('startBtn')
+var winScreen = document.getElementById('youWin')
+var winBtn = document.getElementById('nextLvlBtn')
+var gameOverScreen = document.getElementById('gameOver')
+var resetBtn = document.getElementById('restartBtn')
+var minute
+var second
+var milisecond
 
 //Game Function
 function TaxiDriverGame() {
     const self = this
+    this.level = 1
+    
     this.turnOn = function() {
         let gameOn = document.getElementById('gameOn')
         let onButton = document.getElementById('onBtn')
@@ -35,7 +45,6 @@ function TaxiDriverGame() {
     }
 
     startBtn.addEventListener('click', function(){
-        let startScreen = document.getElementById('startScreen')
         setTimeout(function(){
             passengerInterval = setInterval(function(){
             canvas.passenger()
@@ -45,18 +54,60 @@ function TaxiDriverGame() {
         mainMenu.pause()
         ingameTheme.play()
     })
-    this.level = 1
+
+    resetBtn.addEventListener('click', function(){
+        canvas.ready = false
+        clearInterval(mainInterval)
+        setInterval(function() {console.log('1')}, 200)
+        console.log(roadLanes)
+        for(let i = 0; i < roadLanes.length; i++){
+            for(let j = 0; j < roadLanes[i].length; j++){
+                let temp = document.getElementsByClassName(roadLanes[i][j].name)[0]
+                console.log(temp)
+                road.removeChild(temp)
+                console.log(roadLanes[i][j])
+                let removed = roadLanes[i].shift()
+                obstacleBox.push(removed)
+                temp.yPos = 720
+                temp.needMove = false
+            }
+        }
+        canvas.passenger()
+       
+        
+        
+        
+        
+        
+        // minute = document.getElementById('minute')
+        // second = document.getElementById('second')
+        // milisecond = document.getElementById('milisecond')
+        // minute.innerText = '1'
+        // second.innerText = '00'
+        // milisecond.innerText = '00'
+        // car.$car.style.left = '385px'
+        // car.$car.style.bottom = '70px'
+        // distance = initialDistance
+        // canvas.$passenger.style.left='1105px'
+        gameOverScreen.style.display='none'
+        // ingameTheme.play()
+    })
+
+    winBtn.addEventListener('click', function() {
+        //add 1 to level, do something else
+    })
+
+
+
     //Functions
     this.start = function(){
+        this.level = 1
         //Baraja los obstaculos del array
         obstacleBox.sort(() => 0.5 - Math.random())
-        //El pasajero va al taxi y activa canvas.ready
-        
-            
-
+        roadLanes = [[],[],[],[]]
         //Bucle principal del juego
         mainInterval = setInterval(function() {
-            if(canvas.ready /*&& startCheck === true*/){
+            if(canvas.ready){
                 game.unlockControls()
                 car.move()
                 canvas.stopwatch()
@@ -159,13 +210,13 @@ function TaxiDriverGame() {
         }
     }
     this.gameOver = function() {
+        
         clearInterval(mainInterval)
-        distance = initialDistance
         let opacity = 0
+        gameOverScreen.style.display='block'
         setInterval(function(){
-            this.$gameover = document.getElementById('gameOver')
-            opacity += 50
-            this.$gameover.style.opacity = `${opacity}%`
+            opacity += 20
+            gameOverScreen.style.opacity = `${opacity}%`
         },100)
     }
     this.checkWinCondition = function() {
@@ -184,8 +235,7 @@ function TaxiDriverGame() {
             $distance.innerText = `Destination: ${Math.round(distance*0.065)} m`
         }
         if (distance <= 670 && car.speed === 'on') {
-            console.log('disntace',distance)
-            console.log(finishLineYPos)
+
             finishLineYPos -= car.maxSpeed
             $finishLine.style.bottom = `${finishLineYPos}px`
         }
