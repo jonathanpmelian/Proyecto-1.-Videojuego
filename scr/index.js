@@ -1,16 +1,17 @@
 //MUSIC
 const ingameTheme = new Audio('./assets/sound/ingameTheme.mp3')
-ingameTheme.volume = 0.25
+ingameTheme.volume = 0.1
 ingameTheme.loop = true
 const driveBy = new Audio('./assets/sound/driveBy.wav')
 driveBy.volume = 0.1
 driveBy.loop = true
 const mainMenu = new Audio('./assets/sound/mainMenu.mp3')
-mainMenu.volume = 0.1
+mainMenu.volume = 0.05
 mainMenu.loop = true
 const gameOver = new Audio('./assets/sound/gameOver.mp3')
 gameOver.volume = 0.1
-gameOver.loop = true
+const victory = new Audio('./assets/sound/victory.mp3')
+victory.volume = 0.1
 //GLOBAL DECLARATION
 var canvas = new Canvas()
 var car = new Car()
@@ -34,6 +35,7 @@ var passengerInterval;
 var percentage;
 var finishLineYPos;
 var startScreen;
+var mute;
 //GAME FUNCTION
 function TaxiDriverGame() {
     //VALUES
@@ -42,6 +44,7 @@ function TaxiDriverGame() {
     minute = 0
     second = 15
     milisecond = 0
+    mute = false
     //HUD
     $distance = document.getElementById('distance')
     $level = document.getElementById('level')
@@ -101,6 +104,7 @@ function TaxiDriverGame() {
         //MUSIC
         ingameTheme.play()
         driveBy.play()
+        victory.pause()
     })
     restartBtn.addEventListener('click', function() {
         let restartBtn = document.getElementById('restartBtn')
@@ -157,6 +161,16 @@ function TaxiDriverGame() {
         mainMenu.play()
         gameOver.pause()
         gameOver.currentTime = 0
+    })
+    muteBtn.addEventListener('click', function() {
+        if (mute === false) {
+            mute = true
+            mainMenu.pause()
+            mainMenu.currentTime = 0
+        } else {
+            mute = false
+            mainMenu.play()
+        }
     })
     //FUNCTIONS
     this.start = function(){
@@ -354,6 +368,7 @@ function TaxiDriverGame() {
             ingameTheme.currentTime = 0
             driveBy.pause()
             driveBy.currentTime = 0
+            victory.play()
         } else if(car.speed === 'on'){
             distance -= car.maxSpeed
             $distance.innerText = `Destination: ${Math.round(distance*0.065)} m`
