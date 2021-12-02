@@ -105,6 +105,7 @@ function TaxiDriverGame() {
         ingameTheme.play()
         driveBy.play()
         victory.pause()
+        victory.currentTime = 0
     })
     restartBtn.addEventListener('click', function() {
         let restartBtn = document.getElementById('restartBtn')
