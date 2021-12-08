@@ -1,13 +1,13 @@
-function Canvas() {
-    //DOM
-    this.$canvas = document.getElementById('canvas')
-    this.$passenger = document.getElementById('passengercall')
-    //Passenger
-    this.passengerXPos = 1105
-    this.ready = false  //true cuando el pasajero llega al coche
-
-    //Functions
-    this.stopwatch = function(){
+class Canvas {
+    constructor() {
+        //DOM
+        this.$canvas = document.getElementById('canvas')
+        this.$passenger = document.getElementById('passengercall')
+        //Passenger
+        this.passengerXPos = 1105
+        this.ready = false  //true cuando el pasajero llega al coche
+    }
+    stopwatch() {
         if(minute === 0 && second === 0 && milisecond < 1){
             game.gameOver()
         }else if(milisecond === 0 && second === 0){
@@ -27,7 +27,7 @@ function Canvas() {
         $second.innerText = second < 10 ? `0${second}`:`${second}`
         $minute.innerText = minute < 10 ? `0${minute}`:`${minute}`
     }
-    this.passenger = function() {
+    passenger() {
         //1105-980 es la distancia del chico a la posición del taxi
         if(canvas.passengerXPos <= 1105) {
             this.$passenger.id = 'passenger'
@@ -42,7 +42,6 @@ function Canvas() {
             this.passengerXPos = 1105
             this.$passenger.style.left = `${canvas.passengerXPos}px`
             this.ready = true
-            
         }
     }
 }
