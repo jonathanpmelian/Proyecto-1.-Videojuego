@@ -15,26 +15,26 @@ victory.volume = 0.1
 //GLOBAL DECLARATION
 const canvas = new Canvas()
 const car = new Car()
-var obstacleBox;
-var $stopwatch;
-var $minute;
-var minute;
-var $second;
-var second;
-var $milisecond;
-var milisecond;
-var gameStatus;
-var $distance;
-var $level;
-var $finishLine;
-var roadLanes;
-var initialDistance;
-var distance;
-var mainInterval;
-var passengerInterval;
-var percentage;
-var finishLineYPos;
-var startScreen;
+let obstacleBox;
+let $stopwatch;
+let $minute;
+let minute;
+let $second;
+let second;
+let $milisecond;
+let milisecond;
+let gameStatus;
+let $distance;
+let $level;
+let $finishLine;
+let roadLanes;
+let initialDistance;
+let distance;
+let mainInterval;
+let passengerInterval;
+let percentage;
+let finishLineYPos;
+let startScreen;
 
 //GAME FUNCTION
 class TaxiDriverGame {
@@ -84,13 +84,13 @@ class TaxiDriverGame {
             car.$car.style.left = `${car.position.x}px`
             car.$car.style.display = 'block'
             canvas.$passenger.style.display = 'block'
-            game.start()
+            this.start()
             setTimeout(() => {
                 passengerInterval = setInterval(() => {
                 canvas.passenger()
                 },300)}
             ,1000)
-            game.$winScreen.style.display = 'none'
+            this.$winScreen.style.display = 'none'
             //MUSIC
             ingameTheme.play()
             driveBy.play()
@@ -119,13 +119,13 @@ class TaxiDriverGame {
                 second = 15*this.level%60
                 minute = Math.floor(15*this.level/60)
             }
-            game.start()
+            this.start()
             setTimeout(() => {
                 passengerInterval = setInterval(() => {
                 canvas.passenger()
                 },300)
             },1000)
-            game.$gameover.style.display ='none'
+            this.$gameover.style.display ='none'
             //MUSIC
             ingameTheme.play()
             driveBy.play()
@@ -144,8 +144,8 @@ class TaxiDriverGame {
             minute = 0
             second = 15
             milisecond = 0
-            game.start()
-            game.$gameover.style.display ='none'
+            this.start()
+            this.$gameover.style.display ='none'
             startScreen.style.display = 'inline-block'
             //MUSIC
             mainMenu.play()
@@ -188,14 +188,14 @@ class TaxiDriverGame {
         //Bucle principal del juego
         mainInterval = setInterval(() => {
             if(canvas.ready) {
-                game.unlockControls()
+                this.unlockControls()
                 car.move()
                 canvas.stopwatch()
-                game.checkCollision()
-                game.checkWinCondition()
+                this.checkCollision()
+                this.checkWinCondition()
             }
             //Mandamos obstáculos a los carriles
-            game.obstacleSequence()
+            this.obstacleSequence()
             //Creamos el obstáculo en el DOM
             roadLanes.forEach((elem) => {
                 if(elem[0] !== undefined && elem[0].needDOM) {
@@ -257,7 +257,7 @@ class TaxiDriverGame {
                 (car.position.x + car.dimensions.w) > (roadLanes[i][j].laneRandomXPos+5) &&
                 (car.position.y + car.dimensions.h) > (roadLanes[i][j].yPos+5)
                 ) {
-                    game.gameOver()
+                    this.gameOver()
                 }
             } 
         }  

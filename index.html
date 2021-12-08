@@ -13,54 +13,56 @@
 </head>
 <body>
     <div id="canvas">
-        <div id="gameOn">
+        <section id="gameOn">
             <button id="onBtn"></button>
-        </div>
-        <div id="gameOver">
+        </section>
+
+        <section id="gameOver">
             <img id='imgGameover' src="assets/img/gameover.png" alt="">
-            <div class="btnContainer"> 
-                <button id="restartBtn" type="button">Restart</button>
-            </div> 
-            <div class="btnContainer"> 
-                <button id="quitBtn" type="button">Quit</button>
-            </div> 
-        </div> 
-        <div id="youWin">
+            <button id="restartBtn" type="button">Restart</button>
+            <button id="quitBtn" type="button">Quit</button>
+        </section> 
+
+        <section id="youWin">
             <img src="assets/img/youWin.png" alt="">
-            <div class="btnContainer"> 
-                <button id="nextLvlBtn">Next level!</button>
-            </div>
-        </div> 
-        <div id="startScreen">
+            <button id="nextLvlBtn">Next level!</button>
+        </section> 
+        
+        <section id="startScreen">
             <img src="assets/img/RebootDriver.png" alt="">
-            <section id="instructions">
+
+            <article id="instructions">
                 <p>
                     Tras el primer proyecto, los rebooters quieren salir de fiesta.¿A cuántos podrás llevar antes de que se acabe el tiempo?. <br><br>
                     Usa <button type="button" id= 'muteBtn'>W</button> para acelerar, y <button>A</button> o <button>D</button> para girar a izquierda o derecha.
                 </p>
-            </section>
-            <div class="btnContainer"> 
-                <button id="startBtn" type="button">Start!</button>
-            </div>
-        </div> 
-        <div id="road">
-            <div id="finishline"></div>
-            <div id="car"></div>
-        </div>
-        <div id="passengercall"></div>
-        <div id="HUD">
-            <div id="level">Level</div>
-            <div id="destination">
+            </article>
+
+            <button id="startBtn" type="button">Start!</button>
+        </section> 
+
+        <section id="road">
+            <article id="finishline"></article>
+            <article id="car"></article>
+        </section>
+
+        <section id="passengercall"></section>
+
+        <section id="HUD">
+            <article id="level">Level</article>
+
+            <article id="destination">
                 <span id="distance">Distance</span>
-            </div>
-            <div id="stopwatch">
+            </article>
+
+            <article id="stopwatch">
                 <strong>
                     <span id="minute"></span> ' :
                     <span id="second"></span> " :
                     <span id="milisecond"></span> 
                 </strong>
-            </div>
-        </div> 
+            </article>
+        </section> 
     </div>
 </body>
 </html>

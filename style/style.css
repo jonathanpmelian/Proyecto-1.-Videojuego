@@ -7,7 +7,7 @@ body,html {
     background-color: aliceblue;
 }
 /* CANVAS */
-#canvas{ 
+#canvas { 
     position: relative;
     width: 1500px;
     min-width: 1500px;
@@ -22,57 +22,52 @@ body,html {
     border-radius: 10px;
     object-fit: contain;
 }
-#gameOver, #youWin, #startScreen, #gameOn{
+#gameOver, #youWin, #startScreen, #gameOn {
     position: absolute;
-    display:inline-block;
-    align-content: center;
+    display: grid;
+    justify-content: center;
     width: 100%;
     height: 100%;
     /* background-color: grey; */
 }
-#gameOn{
+#gameOn {
     background-color: black;
     z-index: 500;
 }
-#onBtn{
+#onBtn {
     position: relative;
     background: url(../assets/img/RebootLogo.jpeg);
     width: 150px;
     height: 150px;
     background-size: cover;
     border-width: 0px;
-    top: 40%;
-    left: 45%;
+    margin: auto auto;
 }
-#startScreen{
+#startScreen {
     background-color:rgba(0, 0, 0, 0.5);
     z-index: 400;
     opacity: 1;
 }
-#startScreen img{
+#startScreen img {
     position: relative;
     display: block;
-    margin: 150px auto;
+    margin: 120px auto;
 }
-#instructions{
+#instructions {
     width: 500px;
-    margin: 0 auto;
-    margin-top: -100px;
+    margin: -80px auto 50px auto;
     line-height: 40px;
     background-color: hsla(100, 0, 55, 0.5);
-}
-#startScreen p{
     text-align: center;
     color: white;
     text-shadow: 3px gray;
     font-size: 20px;
-    background-color: hsla(100, 0, 55, 0.5);
 }
-#startScreen>.btnContainer{
-    height: 100px;
-}
-#startBtn{
-    width: 150px;
+#startBtn, #restartBtn, #quitBtn, #nextLvlBtn {
+    display: block;
+    width: 250px;
+    padding: 15px;
+    margin: 20px auto;
     border-radius: 20%;
     background-color: rgba(1,26,35,0.85);
     font-size: 20px;
@@ -80,65 +75,29 @@ body,html {
     color: hsla(178, 49%, 38%, 1);
     border: 5px solid  hsla(178, 49%, 38%, 1);
 }
-#gameOver{
+#gameOver {
     display: none;
     z-index: 300;
     background-color: rgba(1,26,35,0.65);
-    /* opacity: 100%; change when it's ready */
 }
 #gameOver img {
     position: relative;
-    /* border: 2px solid red; */
     display: block;
     margin: 0 auto -100px auto;
     width: 40%;
     top: -100px;
 }
-.btnContainer{
-    /* border: 3px solid green; */
-    display: flex;
-    justify-content: center;
-    top: -100px;
-}
-#gameOver button{
-    align-content: center;
-    text-align: center;
-    width: 250px;
-    border-radius: 20%;
-    background-color: rgba(1,26,35,0.85);
-    font-size: 20px;
-    font-weight: bold;
-    color: hsla(178, 49%, 38%, 1);
-    border: 5px solid  hsla(178, 49%, 38%, 1);
-    padding: 15px;
-    margin-top: 20px;
-}
-#youWin{
-    /* border: 2px solid blue; */
+#youWin {
     position: absolute;
     z-index: 200;
     display: none;
     background-color: rgba(1,26,35,0.65);
 }
-#youWin img{
+#youWin img {
     position: relative;
-    /* border: 2px solid red; */
     display: block;
-    margin: 0 auto;
+    margin: 50px auto;
     width: 30%;
-}
-#youWin button{
-    align-content: center;
-    text-align: center;
-    width: 250px;
-    border-radius: 20%;
-    background-color: rgba(1,26,35,0.85);
-    font-size: 20px;
-    font-weight: bold;
-    color: hsla(178, 49%, 38%, 1);
-    border: 5px solid  hsla(178, 49%, 38%, 1);
-    padding: 15px;
-    margin-top: 20px;
 }
 #passengercall {
     display: none;
@@ -169,7 +128,7 @@ body,html {
     border: 5px solid  hsla(178, 49%, 38%, 1);
     border-radius: 10%;
 }
-#HUD div {
+#HUD article {
     margin: auto auto;
     padding: 20px;
 }
@@ -180,14 +139,12 @@ body,html {
     height: 100%;
     margin-left: 556px;
     overflow: hidden;
-    /* background-color: slategray; */
 }
 #car {
     position: absolute;
     margin: auto auto;
     background-image: url(../assets/img/Taxi.gif);
     background-size: cover;
-    /* background-color: salmon; */
 }
 #finishline {
     position: absolute;
@@ -198,7 +155,6 @@ body,html {
     margin: auto auto;
     background-image: url(../assets/img/finishLine.gif);
     background-size: cover;
-    /* background-color: aquamarine; */
 }
 /*OBSTACLES*/
 .policeCar {
